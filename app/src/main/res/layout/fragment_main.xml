@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -8,6 +9,71 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideCenter"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_x4"
+            android:layout_marginEnd="@dimen/margin_x1"
+            android:layout_marginBottom="@dimen/margin_x4"
+            android:background="@drawable/bg_wheel_label"
+            android:orientation="vertical"
+            android:padding="@dimen/margin_x2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guideCenter"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/lblTireReference"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="175/70 R13"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/lblRimReference"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="13x5.0 ET48"
+                android:textAlignment="center" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_x1"
+            android:layout_marginEnd="@dimen/margin_x4"
+            android:layout_marginBottom="@dimen/margin_x4"
+            android:background="@drawable/bg_wheel_label"
+            android:orientation="vertical"
+            android:padding="@dimen/margin_x2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideCenter">
+
+            <TextView
+                android:id="@+id/lblTireMain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/lblRimMain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textAlignment="center" />
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

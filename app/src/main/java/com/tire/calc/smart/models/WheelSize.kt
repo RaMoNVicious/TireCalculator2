@@ -1,10 +1,10 @@
 package com.tire.calc.smart.models
 
-data class TireSize(
+data class WheelSize(
     val tireWidth: Double,
     val tireHeight: Double,
     val rimWidth: Double,
     val rimHeight: Double,
     val rimEt: Double,
-    val isOffroad: Boolean
+    val isOffroad: Boolean = false
 )

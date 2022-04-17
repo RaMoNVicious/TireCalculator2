@@ -1,40 +1,48 @@
 package com.tire.calc.smart.models
 
 import com.tire.calc.smart.R
+import com.tire.calc.smart.app.Constants
 
-class WheelInfo(val tireSize: TireSize) {
+class WheelInfo(
+    val wheelSize: WheelSize,
+    val isImperial: Boolean = false
+) {
 
-    fun getRimWidth(): Double {
-        return 0.0
+    private fun tireSideHeight(): Double = when (wheelSize.isOffroad) {
+        true -> 0.5 * (wheelSize.tireHeight - wheelSize.rimHeight) * Constants.INCH_TO_MM
+        else -> 0.01 * wheelSize.tireWidth * wheelSize.tireHeight
     }
 
-    fun getRimDiameter(): Double {
-        return 0.0
+    private fun wheelHeight(): Double = when (wheelSize.isOffroad) {
+        true -> wheelSize.tireHeight * Constants.INCH_TO_MM
+        else -> wheelSize.rimHeight * Constants.INCH_TO_MM + 2 * 0.01 * wheelSize.tireWidth * wheelSize.tireHeight
     }
 
-    fun getTireWidth(): Double {
-        return 0.0
-    }
+    fun getRimWidth(): Double = getDimension(wheelSize.rimWidth * Constants.INCH_TO_MM)
 
-    fun getTireSideHeight(): Double {
-        return 0.0
-    }
+    fun getRimDiameter(): Double = getDimension(wheelSize.rimHeight * Constants.INCH_TO_MM)
 
-    fun getWheelHeight(): Double {
-        return 0.0
-    }
+    fun getTireWidth(): Double = getDimension(
+        when (wheelSize.isOffroad) {
+            true -> wheelSize.tireWidth * Constants.INCH_TO_MM
+            else -> wheelSize.tireWidth
+        }
+    )
 
-    fun getWheelCircumference(): Double {
-        return 0.0
-    }
+    fun getTireSideHeight(): Double = getDimension(tireSideHeight())
+
+    fun getWheelHeight(): Double = getDimension(wheelHeight())
+
+    fun getWheelCircumference(): Double = getDimension(wheelHeight() * Math.PI)
 
     fun getSpeedAt(): Double {
         return 0.0
     }
 
-    fun getRevsPer(): Double {
-        return 0.0
-    }
+    fun getRevsPer(): Double = when (isImperial) {
+        true -> Constants.MI_IN_MM
+        else -> Constants.KM_IN_MM
+    } / wheelHeight() * Math.PI
 
     fun getDistanceToArch(): Int {
         return R.string.app_name
@@ -46,5 +54,32 @@ class WheelInfo(val tireSize: TireSize) {
 
     fun getGroundClearance(): Int {
         return R.string.app_name
+    }
+
+    fun getTireLabel(): String = when (wheelSize.isOffroad) {
+        true -> String.format(
+            "%1$.1f\"x%2$.1f\" R%3$.0f",
+            wheelSize.tireWidth,
+            wheelSize.tireHeight,
+            wheelSize.rimHeight
+        )
+        else -> String.format(
+            "%1$.0f/%2$.0f R%3$.0f",
+            wheelSize.tireWidth,
+            wheelSize.tireHeight,
+            wheelSize.rimHeight
+        )
+    }
+
+    fun getRimLabel(): String = String.format(
+        "%1$.0fx%2$.1f ET%3$.0f",
+        wheelSize.rimHeight,
+        wheelSize.rimWidth,
+        wheelSize.rimEt
+    )
+
+    private fun getDimension(value: Double): Double = when (isImperial) {
+        true -> value / Constants.INCH_TO_MM
+        else -> value
     }
 }

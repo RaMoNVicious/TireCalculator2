@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="margin_x1">4dp</dimen>
+    <dimen name="margin_x2">8dp</dimen>
+    <dimen name="margin_x3">12dp</dimen>
+    <dimen name="margin_x4">16dp</dimen>
+    <dimen name="margin_x6">24dp</dimen>
+    <dimen name="margin_x8">32dp</dimen>
+    <dimen name="margin_x9">36dp</dimen>
+    <dimen name="margin_x10">40dp</dimen>
+
+    <dimen name="menu_button_size">48dp</dimen>
+
+    <dimen name="popup_radius">@dimen/margin_x9</dimen>
+
+    <dimen name="card_elevation">@dimen/margin_x2</dimen>
+    <dimen name="card_radius">@dimen/margin_x4</dimen>
+
+    <dimen name="text_size">14sp</dimen>
+    <dimen name="text_title_size">20sp</dimen>
+    <dimen name="card_text_label_size">14sp</dimen>
+    <dimen name="card_text_value_size">36sp</dimen>
+
+</resources>
