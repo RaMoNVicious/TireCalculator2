@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">TireCalculator2</string>
+    <string name="app_name">TireCalculator 2</string>
+    <string name="content_description_logo">App logo</string>
+    <string name="content_description_menu">Main menu button</string>
+    <string name="content_description_search">Search button</string>
+    <string name="content_description_back">Back button</string>
+
+
 </resources>

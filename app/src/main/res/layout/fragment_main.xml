@@ -17,6 +17,34 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.5" />
 
+        <ImageButton
+            android:id="@+id/btnMenu"
+            style="@style/Button.Image"
+            android:contentDescription="@string/content_description_menu"
+            android:src="@drawable/ic_menu"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/text_label" />
+
+        <TextView
+            android:id="@+id/txtTitle"
+            style="@style/Label.Title"
+            android:text="@string/app_name"
+            android:transitionName="txtTitle"
+            app:layout_constraintBottom_toBottomOf="@id/btnMenu"
+            app:layout_constraintStart_toEndOf="@id/btnMenu"
+            app:layout_constraintTop_toTopOf="@id/btnMenu" />
+
+        <ImageButton
+            android:id="@+id/btnSearch"
+            style="@style/Button.Image"
+            android:contentDescription="@string/content_description_menu"
+            android:src="@drawable/ic_search"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/text_label" />
+
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
