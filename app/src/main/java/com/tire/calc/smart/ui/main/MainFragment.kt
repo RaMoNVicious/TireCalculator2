@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import com.tire.calc.smart.R
 import com.tire.calc.smart.databinding.FragmentMainBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -27,6 +29,18 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         _binding.lifecycleOwner = this
+
+        _binding.apply {
+            sizeReference.setOnClickListener {
+                activity
+                    ?.findNavController(R.id.nav_host_fragment_container)
+                    ?.navigate(R.id.action_mainFragment_to_sizeFragment)
+            }
+        }
+
+        viewModel.allManufacturers.observe(viewLifecycleOwner) {
+            Log.d("WHEEL", "items: ${it.size}")
+        }
 
         viewModel.wheelInfo.observe(viewLifecycleOwner) { wheelInfo ->
             Log.d(

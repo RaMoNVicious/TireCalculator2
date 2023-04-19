@@ -4,6 +4,8 @@
     <string name="content_description_menu">Main menu button</string>
     <string name="content_description_search">Search button</string>
     <string name="content_description_back">Back button</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

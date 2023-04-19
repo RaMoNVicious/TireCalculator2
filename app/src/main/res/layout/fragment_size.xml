@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".ui.size.SizeFragment">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideCenter"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <TextView
+            android:id="@+id/lblRimSize"
+            style="@style/Label.Dialog"
+            android:layout_marginStart="@dimen/margin_x8"
+            android:layout_marginTop="@dimen/margin_x8"
+            android:layout_marginEnd="@dimen/margin_x8"
+            android:text="rim size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnRimWidth"
+            style="@style/Button.Size"
+            android:layout_marginTop="@dimen/margin_x4"
+            android:text="5.5"
+            app:layout_constraintEnd_toEndOf="@id/guideCenter"
+            app:layout_constraintStart_toStartOf="@id/guideCenter"
+            app:layout_constraintTop_toBottomOf="@id/lblRimSize" />
+
+        <Button
+            android:id="@+id/btnRimDiameter"
+            style="@style/Button.Size"
+            android:layout_marginEnd="@dimen/margin_x8"
+            android:text="23"
+            app:layout_constraintBaseline_toBaselineOf="@id/btnRimWidth"
+            app:layout_constraintEnd_toStartOf="@id/btnRimWidth" />
+
+        <Button
+            android:id="@+id/btnRimET"
+            style="@style/Button.Size"
+            android:layout_marginStart="@dimen/margin_x8"
+            android:text="-48"
+            app:layout_constraintBaseline_toBaselineOf="@id/btnRimWidth"
+            app:layout_constraintStart_toEndOf="@id/btnRimWidth" />
+
+        <TextView
+            android:id="@+id/lblRimSizeSplitter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="X"
+            android:textSize="24sp"
+            app:layout_constraintBaseline_toBaselineOf="@id/btnRimWidth"
+            app:layout_constraintEnd_toStartOf="@id/btnRimWidth"
+            app:layout_constraintStart_toEndOf="@id/btnRimDiameter" />
+
+        <TextView
+            android:id="@+id/lblRimDiameter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="diameter"
+            app:layout_constraintEnd_toEndOf="@id/btnRimDiameter"
+            app:layout_constraintStart_toStartOf="@id/btnRimDiameter"
+            app:layout_constraintTop_toBottomOf="@id/btnRimDiameter" />
+
+        <TextView
+            android:id="@+id/lblRimWidth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="width"
+            app:layout_constraintEnd_toEndOf="@id/btnRimWidth"
+            app:layout_constraintStart_toStartOf="@id/btnRimWidth"
+            app:layout_constraintTop_toBottomOf="@id/btnRimWidth" />
+
+        <TextView
+            android:id="@+id/lblRimET"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ET"
+            app:layout_constraintEnd_toEndOf="@id/btnRimET"
+            app:layout_constraintStart_toStartOf="@id/btnRimET"
+            app:layout_constraintTop_toBottomOf="@id/btnRimET" />
+
+        <TextView
+            android:id="@+id/lblTireSize"
+            style="@style/Label.Dialog"
+            android:layout_marginStart="@dimen/margin_x8"
+            android:layout_marginTop="@dimen/margin_x8"
+            android:layout_marginEnd="@dimen/margin_x8"
+            android:text="tire size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lblRimWidth" />
+
+        <Button
+            android:id="@+id/btnTireHeight"
+            style="@style/Button.Size"
+            android:layout_marginTop="@dimen/margin_x4"
+            android:text="10.0"
+            app:layout_constraintEnd_toEndOf="@id/guideCenter"
+            app:layout_constraintStart_toStartOf="@id/guideCenter"
+            app:layout_constraintTop_toBottomOf="@id/lblTireSize" />
+
+        <Button
+            android:id="@+id/btnTireWidth"
+            style="@style/Button.Size"
+            android:layout_marginEnd="@dimen/margin_x8"
+            android:text="33.0"
+            app:layout_constraintBaseline_toBaselineOf="@id/btnTireHeight"
+            app:layout_constraintEnd_toStartOf="@id/btnTireHeight" />
+
+        <Button
+            android:id="@+id/btnTireDiameter"
+            style="@style/Button.Size"
+            android:layout_marginStart="@dimen/margin_x8"
+            android:text="R23"
+            app:layout_constraintBaseline_toBaselineOf="@id/btnTireHeight"
+            app:layout_constraintStart_toEndOf="@id/btnTireHeight" />
+
+        <TextView
+            android:id="@+id/lblTireSizeSplitter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="/"
+            android:textSize="24sp"
+            app:layout_constraintBaseline_toBaselineOf="@id/btnTireHeight"
+            app:layout_constraintEnd_toStartOf="@id/btnTireHeight"
+            app:layout_constraintStart_toEndOf="@id/btnTireWidth" />
+
+        <TextView
+            android:id="@+id/lblTireWidth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="width"
+            app:layout_constraintEnd_toEndOf="@id/btnTireWidth"
+            app:layout_constraintStart_toStartOf="@id/btnTireWidth"
+            app:layout_constraintTop_toBottomOf="@id/btnTireWidth" />
+
+        <TextView
+            android:id="@+id/lblTireHeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="height"
+            app:layout_constraintEnd_toEndOf="@id/btnTireHeight"
+            app:layout_constraintStart_toStartOf="@id/btnTireHeight"
+            app:layout_constraintTop_toBottomOf="@id/btnTireHeight" />
+
+        <TextView
+            android:id="@+id/lblTireDiameter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="diameter"
+            app:layout_constraintEnd_toEndOf="@id/btnTireDiameter"
+            app:layout_constraintStart_toStartOf="@id/btnTireDiameter"
+            app:layout_constraintTop_toBottomOf="@id/btnTireDiameter" />
+
+        <ImageButton
+            android:id="@+id/btnClose"
+            style="@style/Button.Image"
+            android:layout_margin="@dimen/margin_x8"
+            android:contentDescription="@string/content_description_menu"
+            android:src="@drawable/ic_done"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lblTireDiameter"
+            app:tint="@color/text_label" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnByCarModel"
+            style="@style/Button.Link"
+            android:layout_marginStart="@dimen/margin_x8"
+            android:text="Select by Car Model"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btnClose"
+            app:layout_constraintBottom_toBottomOf="@id/btnClose"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
