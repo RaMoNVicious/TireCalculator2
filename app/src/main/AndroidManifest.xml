@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TireCalculator2">
         <activity
+            android:name=".ui.SizeActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>

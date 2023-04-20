@@ -20,6 +20,18 @@
     <dialog
         android:id="@+id/sizeFragment"
         android:name="com.tire.calc.smart.ui.size.SizeFragment"
-        android:label="SizeFragment" />
+        android:label="SizeFragment" >
+
+        <action
+            android:id="@+id/action_sizeFragment_to_sizeActivity"
+            app:destination="@id/sizeActivity" />
+
+    </dialog>
+
+    <activity
+        android:id="@+id/sizeActivity"
+        android:name="com.tire.calc.smart.ui.SizeActivity"
+        android:label="activity_size"
+        tools:layout="@layout/activity_size" />
 
 </navigation>

@@ -63,16 +63,23 @@
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/text_normal</item>
     </style>
+    
+    <style name="ShapeAppearance.Button" parent="ShapeAppearance.Material3.LargeComponent">
+        <item name="cornerSize">@dimen/tire_button_size</item>
+        <item name="cornerRadius">@dimen/tire_button_size</item>
+    </style>
 
 
-    <style name="Button.Size" parent="Widget.AppCompat.Button.Borderless">
+    <style name="Button.Size" parent="Widget.Material3.Button">
         <item name="android:layout_width">@dimen/tire_button_size</item>
         <item name="android:layout_height">@dimen/tire_button_size</item>
         <item name="android:padding">0dp</item>
-        <!--<item name="android:background">?attr/selectableItemBackgroundBorderless</item>-->
-        <item name="android:background">@drawable/background_button_size</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="backgroundTint">@color/button_disabled</item>
         <item name="android:textSize">24sp</item>
         <item name="android:textColor">@color/text_normal</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.Button</item>
     </style>
 
 </resources>
