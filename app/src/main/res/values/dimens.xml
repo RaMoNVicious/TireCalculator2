@@ -24,4 +24,6 @@
     <dimen name="card_text_label_size">14sp</dimen>
     <dimen name="card_text_value_size">36sp</dimen>
 
+    <dimen name="search_brand_logo_size">32dp</dimen>
+
 </resources>

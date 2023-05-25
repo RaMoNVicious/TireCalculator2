@@ -58,9 +58,17 @@ class SizeFragment : BottomSheetDialogFragment() {
                             putInt("KEY", 23)
                         }
                     )
-                /*sizeForResult.launch(
-                    Intent(activity, SizeActivity::class.java)
-                )*/
+            }
+
+            btnByCarModel.setOnClickListener {
+                activity
+                    ?.findNavController(R.id.nav_host_fragment_container)
+                    ?.navigate(
+                        R.id.action_sizeFragment_to_searchActivity,
+                        Bundle()/*.apply {
+                            putInt("KEY", 23)
+                        }*/
+                    )
             }
 
             btnClose.setOnClickListener { dismiss() }

@@ -20,7 +20,7 @@ class MainViewModel(
 
     private val repository: ManufacturerRepository
 
-    val allManufacturers: LiveData<List<Manufacturer>>
+    //val allManufacturers: LiveData<List<Manufacturer>>
 
     val wheelInfo = MutableLiveData<WheelInfo>()
 
@@ -28,7 +28,7 @@ class MainViewModel(
     init {
         val manufacturer = DatabaseService.getDatabase(application).manufacturerDao()
         repository = ManufacturerRepository(manufacturer)
-        allManufacturers = repository.allManufacturers
+        //allManufacturers = repository.allManufacturers
     }
 
     fun updateCarInfo() =

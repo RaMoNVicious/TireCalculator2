@@ -38,9 +38,9 @@ class MainFragment : Fragment() {
             }
         }
 
-        viewModel.allManufacturers.observe(viewLifecycleOwner) {
+        /*viewModel.allManufacturers.observe(viewLifecycleOwner) {
             Log.d("WHEEL", "items: ${it.size}")
-        }
+        }*/
 
         viewModel.wheelInfo.observe(viewLifecycleOwner) { wheelInfo ->
             Log.d(

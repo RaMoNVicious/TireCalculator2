@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_sizeFragment_to_sizeActivity"
             app:destination="@id/sizeActivity" />
+        <action
+            android:id="@+id/action_sizeFragment_to_searchActivity"
+            app:destination="@id/searchActivity" />
 
     </dialog>
 
@@ -33,5 +36,11 @@
         android:name="com.tire.calc.smart.ui.SizeActivity"
         android:label="activity_size"
         tools:layout="@layout/activity_size" />
+
+    <activity
+        android:id="@+id/searchActivity"
+        android:name="com.tire.calc.smart.ui.SearchActivity"
+        android:label="activity_search"
+        tools:layout="@layout/activity_search" />
 
 </navigation>

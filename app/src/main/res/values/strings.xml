@@ -6,5 +6,6 @@
     <string name="content_description_back">Back button</string>
     
     <string name="select_size_title">Select Tire %s</string>
+    <string name="select_model_title">Select by Car model</string>
 
 </resources>
