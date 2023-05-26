@@ -25,10 +25,6 @@ class SearchViewModel(
         viewModelScope.launch {
             val result = withContext(Dispatchers.IO) {
                 manufacturerModelRepository.getAll(3)
-            }
-
-            _manufacturers.postValue(
-                result
                     .groupBy { it.manufacturerName }
                     .map { grouped ->
                         SearchManufacturer(
@@ -41,7 +37,9 @@ class SearchViewModel(
                             }
                         )
                     }
-            )
+            }
+
+            _manufacturers.postValue(result)
 
             /*_manufacturers.postValue(
                 listOf(
@@ -75,10 +73,6 @@ class SearchViewModel(
         viewModelScope.launch {
             val result = withContext(Dispatchers.IO) {
                 manufacturerModelRepository.search(text)
-            }
-
-            _manufacturers.postValue(
-                result
                     .groupBy { it.manufacturerName }
                     .map { grouped ->
                         SearchManufacturer(
@@ -91,6 +85,8 @@ class SearchViewModel(
                             }
                         )
                     }
-            )
+            }
+
+            _manufacturers.postValue(result)
         }
 }
