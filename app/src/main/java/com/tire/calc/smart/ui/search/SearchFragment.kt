@@ -36,19 +36,11 @@ class SearchFragment : Fragment() {
         adapter = SearchModelAdapter()
         _binding.lstSearch.adapter = adapter
 
-        _binding.txtSearch.doOnTextChanged { text, _, _, count ->
-            if (count == 0) {
-                viewModel.getModels()
-            } else {
-                viewModel.search(text.toString())
-            }
-        }
+        _binding.txtSearch.doOnTextChanged { text, _, _, _ -> viewModel.search(text.toString()) }
 
         viewModel.manufacturers.observe(viewLifecycleOwner) {
             Log.d("ITEMS", it?.toString() ?: "NULL")
             adapter.setItems(it ?: emptyList())
         }
-
-        viewModel.getModels()
     }
 }

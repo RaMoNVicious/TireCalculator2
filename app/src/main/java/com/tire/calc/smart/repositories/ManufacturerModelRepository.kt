@@ -1,13 +1,15 @@
 package com.tire.calc.smart.repositories
 
 import com.tire.calc.smart.models.ManufacturerModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 class ManufacturerModelRepository(private val manufacturerModelDao: ManufacturerModelDao) {
-    fun getAll(limit: Int = 5): List<ManufacturerModel> {
-        return manufacturerModelDao.getAll(limit)
+    suspend fun getAll(): Flow<List<ManufacturerModel>> {
+        return flow { emit(manufacturerModelDao.getAll()) }
     }
 
-    fun search(text: String): List<ManufacturerModel> {
-        return manufacturerModelDao.search(text)
+    suspend fun search(text: String): Flow<List<ManufacturerModel>> {
+        return flow { emit(manufacturerModelDao.search(text)) }
     }
 }
