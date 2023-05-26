@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import com.tire.calc.smart.databinding.FragmentSearchByModelBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -35,9 +36,17 @@ class SearchFragment : Fragment() {
         adapter = SearchModelAdapter()
         _binding.lstSearch.adapter = adapter
 
+        _binding.txtSearch.doOnTextChanged { text, _, _, count ->
+            if (count == 0) {
+                viewModel.getModels()
+            } else {
+                viewModel.search(text.toString())
+            }
+        }
+
         viewModel.manufacturers.observe(viewLifecycleOwner) {
-            Log.d("ITEMS", it.toString())
-            adapter.setItems(it)
+            Log.d("ITEMS", it?.toString() ?: "NULL")
+            adapter.setItems(it ?: emptyList())
         }
 
         viewModel.getModels()

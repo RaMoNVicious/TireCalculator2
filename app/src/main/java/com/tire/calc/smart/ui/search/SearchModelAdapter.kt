@@ -37,6 +37,7 @@ class SearchModelAdapter : RecyclerView.Adapter<SearchModelAdapter.SearchModelVH
         val item = _items[position]
         holder.brandName.text = item.manufacturerName
 
+        holder.pnlModels.removeAllViews()
         item.models.forEach { searchModel ->
             val chip = Chip(holder.pnlModels.context)
             chip.text = searchModel.modelName

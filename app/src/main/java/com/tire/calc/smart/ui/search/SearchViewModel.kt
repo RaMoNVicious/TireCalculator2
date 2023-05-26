@@ -3,27 +3,47 @@ package com.tire.calc.smart.ui.search
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.tire.calc.smart.models.SearchManufacturer
 import com.tire.calc.smart.models.SearchModel
+import com.tire.calc.smart.repositories.ManufacturerModelRepository
 import com.tire.calc.smart.repositories.ManufacturerRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SearchViewModel(
-    private val manufacturerRepository: ManufacturerRepository
+    private val manufacturerModelRepository: ManufacturerModelRepository
 ) : ViewModel() {
 
-    private val _manufacturers: MutableLiveData<List<SearchManufacturer>> = MutableLiveData<List<SearchManufacturer>>()
+    private val _manufacturers: MutableLiveData<List<SearchManufacturer>> =
+        MutableLiveData<List<SearchManufacturer>>()
     val manufacturers: LiveData<List<SearchManufacturer>> = _manufacturers
 
     fun getModels() =
         viewModelScope.launch {
-            /*val result = withContext(Dispatchers.IO) {
-                manufacturerRepository.allManufacturers
+            val result = withContext(Dispatchers.IO) {
+                manufacturerModelRepository.getAll(3)
             }
-            _manufacturers.postValue(result.value)*/
 
             _manufacturers.postValue(
+                result
+                    .groupBy { it.manufacturerName }
+                    .map { grouped ->
+                        SearchManufacturer(
+                            manufacturerName = grouped.key,
+                            models = grouped.value.map {
+                                SearchModel(
+                                    modelId = it.modelId.toInt(),
+                                    modelName = it.modelName
+                                )
+                            }
+                        )
+                    }
+            )
+
+            /*_manufacturers.postValue(
                 listOf(
                     SearchManufacturer(
                         manufacturerName = "Audi",
@@ -48,6 +68,29 @@ class SearchViewModel(
                         ),
                     ),
                 )
+            )*/
+        }
+
+    fun search(text: String) =
+        viewModelScope.launch {
+            val result = withContext(Dispatchers.IO) {
+                manufacturerModelRepository.search(text)
+            }
+
+            _manufacturers.postValue(
+                result
+                    .groupBy { it.manufacturerName }
+                    .map { grouped ->
+                        SearchManufacturer(
+                            manufacturerName = grouped.key,
+                            models = grouped.value.map {
+                                SearchModel(
+                                    modelId = it.modelId.toInt(),
+                                    modelName = it.modelName
+                                )
+                            }
+                        )
+                    }
             )
         }
 }

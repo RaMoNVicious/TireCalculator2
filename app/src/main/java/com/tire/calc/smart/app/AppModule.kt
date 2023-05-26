@@ -3,6 +3,7 @@ package com.tire.calc.smart.app
 import android.app.Application
 import android.content.SharedPreferences
 import com.tire.calc.smart.repositories.DatabaseService
+import com.tire.calc.smart.repositories.ManufacturerModelRepository
 import com.tire.calc.smart.repositories.ManufacturerRepository
 import com.tire.calc.smart.ui.main.MainViewModel
 import com.tire.calc.smart.ui.search.SearchViewModel
@@ -15,7 +16,10 @@ val appModule = module {
     viewModel { SearchViewModel(get()) }
 
     single { DatabaseService.getDatabase(androidApplication()).manufacturerDao() }
+    single { DatabaseService.getDatabase(androidApplication()).manufacturerModelDao() }
+    single { DatabaseService.getDatabase(androidApplication()).modelDao() }
     single { ManufacturerRepository(get()) }
+    single { ManufacturerModelRepository(get()) }
 
     single { getSharedPrefs(androidApplication()) }
     single<SharedPreferences.Editor> { getSharedPrefs(androidApplication()).edit() }

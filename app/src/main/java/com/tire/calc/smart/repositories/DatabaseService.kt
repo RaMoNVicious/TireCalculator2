@@ -19,6 +19,8 @@ import com.tire.calc.smart.models.dao.TireSize
 )
 abstract class DatabaseService : RoomDatabase() {
 
+    abstract fun manufacturerModelDao(): ManufacturerModelDao
+
     abstract fun manufacturerDao(): ManufacturerDao
 
     abstract fun modelDao(): ModelDao
