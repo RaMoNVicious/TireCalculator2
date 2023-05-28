@@ -63,19 +63,20 @@
                 android:id="@+id/lblTireReference"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="175/70 R13"
+                android:text=""
                 android:textAlignment="center" />
 
             <TextView
                 android:id="@+id/lblRimReference"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="13x5.0 ET48"
+                android:text=""
                 android:textAlignment="center" />
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/sizeCandidate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_x1"

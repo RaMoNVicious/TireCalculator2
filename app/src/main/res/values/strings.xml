@@ -5,7 +5,13 @@
     <string name="content_description_search">Search button</string>
     <string name="content_description_back">Back button</string>
     
-    <string name="select_size_title">Select Tire %s</string>
+    <string name="select_size_title">Select %s</string>
+    <string name="select_size_rim_diameter">Rim Diameter</string>
+    <string name="select_size_rim_width">Rim Width</string>
+    <string name="select_size_rim_et">Rim ET</string>
+    <string name="select_size_tire_width">Tire Width</string>
+    <string name="select_size_tire_height">Tire Height</string>
+
     <string name="select_model_title">Select by Car model</string>
 
 </resources>

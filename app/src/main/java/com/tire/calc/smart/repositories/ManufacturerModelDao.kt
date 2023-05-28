@@ -2,7 +2,7 @@ package com.tire.calc.smart.repositories
 
 import androidx.room.Dao
 import androidx.room.Query
-import com.tire.calc.smart.models.ManufacturerModel
+import com.tire.calc.smart.models.dao.ManufacturerModel
 
 @Dao
 interface ManufacturerModelDao {

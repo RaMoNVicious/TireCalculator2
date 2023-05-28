@@ -9,7 +9,7 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.tire.calc.smart.R
 import com.tire.calc.smart.databinding.ListItemBrandModelsBinding
-import com.tire.calc.smart.models.TrimSizes
+import com.tire.calc.smart.models.domain.ModelTrimSizes
 
 class ModelSizeAdapter(private val onItemClickListener: OnClickListener) : RecyclerView.Adapter<ModelSizeAdapter.SearchModelVH>() {
 
@@ -17,9 +17,9 @@ class ModelSizeAdapter(private val onItemClickListener: OnClickListener) : Recyc
         fun onItemClick(sizeId: Long)
     }
 
-    private var _items = emptyList<TrimSizes>()
+    private var _items = emptyList<ModelTrimSizes>()
 
-    fun setItems(items: List<TrimSizes>) {
+    fun setItems(items: List<ModelTrimSizes>) {
         _items = items
         notifyDataSetChanged()
     }

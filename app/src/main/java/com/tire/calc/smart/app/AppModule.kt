@@ -10,13 +10,15 @@ import com.tire.calc.smart.repositories.SavedSizeRepository
 import com.tire.calc.smart.ui.main.MainViewModel
 import com.tire.calc.smart.ui.modelsize.ModelSizeViewModel
 import com.tire.calc.smart.ui.search.SearchViewModel
+import com.tire.calc.smart.ui.size.SizeViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {
-    viewModel { MainViewModel(get(), get()) }
+    viewModel { MainViewModel(get()) }
     viewModel { SearchViewModel(get()) }
+    viewModel { SizeViewModel(get()) }
     viewModel { ModelSizeViewModel(get()) }
 
     single { DatabaseService.getDatabase(androidApplication()).manufacturerDao() }

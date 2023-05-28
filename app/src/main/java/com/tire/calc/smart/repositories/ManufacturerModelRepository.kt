@@ -1,6 +1,6 @@
 package com.tire.calc.smart.repositories
 
-import com.tire.calc.smart.models.ManufacturerModel
+import com.tire.calc.smart.models.dao.ManufacturerModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

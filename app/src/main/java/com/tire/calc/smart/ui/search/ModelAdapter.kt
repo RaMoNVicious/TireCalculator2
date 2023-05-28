@@ -8,7 +8,7 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.tire.calc.smart.R
 import com.tire.calc.smart.databinding.ListItemBrandModelsBinding
-import com.tire.calc.smart.models.SearchManufacturer
+import com.tire.calc.smart.models.domain.Manufacturer
 
 class ModelAdapter(private val onItemClickListener: OnClickListener)
     : RecyclerView.Adapter<ModelAdapter.SearchModelVH>()
@@ -17,9 +17,9 @@ class ModelAdapter(private val onItemClickListener: OnClickListener)
         fun onItemClick(modelId: Long)
     }
 
-    private var _items = emptyList<SearchManufacturer>()
+    private var _items = emptyList<Manufacturer>()
 
-    fun setItems(items: List<SearchManufacturer>) {
+    fun setItems(items: List<Manufacturer>) {
         _items = items
         notifyDataSetChanged()
     }

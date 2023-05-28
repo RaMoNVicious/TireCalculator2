@@ -1,6 +1,6 @@
 package com.tire.calc.smart.repositories
 
-import com.tire.calc.smart.models.TrimSize
+import com.tire.calc.smart.models.dao.TrimSize
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

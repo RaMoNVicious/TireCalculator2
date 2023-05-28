@@ -1,18 +1,32 @@
 package com.tire.calc.smart.ui
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.tire.calc.smart.R
+import com.tire.calc.smart.app.Constants
+import com.tire.calc.smart.databinding.ActivitySizeBinding
 
 class SizeActivity : AppCompatActivity() {
+    private lateinit var _binding: ActivitySizeBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_size)
 
-        if (Intent().hasExtra("KEY")) {
-            Log.d("SIZE", "${Intent().getIntExtra("KEY", 0)}")
+        _binding = DataBindingUtil.setContentView(this, R.layout.activity_size)
+
+        if (intent.hasExtra(Constants.SIZE_TYPE) && intent.hasExtra(Constants.SIZE_VALUE)) {
+            _binding.titleSize = getString(
+                when (intent.getStringExtra(Constants.SIZE_TYPE)) {
+                    Constants.SIZE_RIM_HEIGHT -> R.string.select_size_rim_diameter
+                    Constants.SIZE_RIM_WIDTH -> R.string.select_size_rim_width
+                    Constants.SIZE_RIM_ET -> R.string.select_size_rim_et
+                    Constants.SIZE_TIRE_WIDTH -> R.string.select_size_tire_width
+                    Constants.SIZE_TIRE_HEIGHT -> R.string.select_size_tire_height
+                    else -> R.string.app_name
+                }
+            )
+
+            // TODO:
         }
     }
 }

@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tire.calc.smart.models.ManufacturerModel
-import com.tire.calc.smart.models.SearchManufacturer
-import com.tire.calc.smart.models.SearchModel
+import com.tire.calc.smart.models.dao.ManufacturerModel
+import com.tire.calc.smart.models.domain.Manufacturer
+import com.tire.calc.smart.models.domain.Model
 import com.tire.calc.smart.repositories.ManufacturerModelRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ensureActive
@@ -16,17 +16,17 @@ class SearchViewModel(
     private val manufacturerModelRepository: ManufacturerModelRepository
 ) : ViewModel() {
 
-    private val _manufacturers: MutableLiveData<List<SearchManufacturer>> =
-        MutableLiveData<List<SearchManufacturer>>()
-    val manufacturers: LiveData<List<SearchManufacturer>> = _manufacturers
+    private val _manufacturers: MutableLiveData<List<Manufacturer>> =
+        MutableLiveData<List<Manufacturer>>()
+    val manufacturers: LiveData<List<Manufacturer>> = _manufacturers
 
     private fun List<ManufacturerModel>.toSearch() =
         this.groupBy { it.manufacturerName }
             .map { grouped ->
-                SearchManufacturer(
+                Manufacturer(
                     manufacturerName = grouped.key,
                     models = grouped.value.map {
-                        SearchModel(
+                        Model(
                             modelId = it.modelId,
                             modelName = it.modelName
                         )
