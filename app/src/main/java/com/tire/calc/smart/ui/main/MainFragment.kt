@@ -38,13 +38,13 @@ class MainFragment : Fragment() {
             }
         }
 
-        viewModel.allManufacturers.observe(viewLifecycleOwner) {
+        /*viewModel.allManufacturers.observe(viewLifecycleOwner) {
             Log.d("WHEEL", "items: ${it.size}")
-        }
+        }*/
 
-        viewModel.wheelInfo.observe(viewLifecycleOwner) { wheelInfo ->
+        viewModel.wheelReference.observe(viewLifecycleOwner) { wheelInfo ->
             Log.d(
-                "WHEEL",
+                "WHEEL REFERENCE",
                 "on WheelInfo observe\n" +
                         "Caption: ${wheelInfo.getTireLabel()}, ${wheelInfo.getRimLabel()}\n" +
                         "Wheel Height: ${wheelInfo.getWheelHeight()}\n" +
@@ -61,6 +61,25 @@ class MainFragment : Fragment() {
             }
         }
 
-        viewModel.updateCarInfo()
+        viewModel.wheelCandidate.observe(viewLifecycleOwner) { wheelInfo ->
+            Log.d(
+                "WHEEL CANDIDATE",
+                "on WheelInfo observe\n" +
+                        "Caption: ${wheelInfo.getTireLabel()}, ${wheelInfo.getRimLabel()}\n" +
+                        "Wheel Height: ${wheelInfo.getWheelHeight()}\n" +
+                        "Tire Width: ${wheelInfo.getTireWidth()}\n" +
+                        "Tire Side Height: ${wheelInfo.getTireSideHeight()}\n" +
+                        "Rim Width: ${wheelInfo.getRimWidth()}\n" +
+                        "Rim Height: ${wheelInfo.getRimDiameter()}\n" +
+                        "Revs per km: ${wheelInfo.getRevsPer()}\n" // TODO: add results values
+            )
+
+            _binding.apply {
+                lblTireCandidate.text = wheelInfo.getTireLabel()
+                lblRimCandidate.text = wheelInfo.getRimLabel()
+            }
+        }
+
+        //viewModel.updateCarInfo()
     }
 }

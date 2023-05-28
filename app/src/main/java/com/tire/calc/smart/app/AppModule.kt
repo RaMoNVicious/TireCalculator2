@@ -6,6 +6,7 @@ import com.tire.calc.smart.repositories.DatabaseService
 import com.tire.calc.smart.repositories.ManufacturerModelRepository
 import com.tire.calc.smart.repositories.ManufacturerRepository
 import com.tire.calc.smart.repositories.ModelSizeRepository
+import com.tire.calc.smart.repositories.SavedSizeRepository
 import com.tire.calc.smart.ui.main.MainViewModel
 import com.tire.calc.smart.ui.modelsize.ModelSizeViewModel
 import com.tire.calc.smart.ui.search.SearchViewModel
@@ -22,9 +23,12 @@ val appModule = module {
     single { DatabaseService.getDatabase(androidApplication()).manufacturerModelDao() }
     single { DatabaseService.getDatabase(androidApplication()).modelDao() }
     single { DatabaseService.getDatabase(androidApplication()).modelSizeDao() }
+    single { DatabaseService.getDatabase(androidApplication()).savedSizeDao() }
+
     single { ManufacturerRepository(get()) }
     single { ManufacturerModelRepository(get()) }
     single { ModelSizeRepository(get()) }
+    single { SavedSizeRepository(get()) }
 
     single { getSharedPrefs(androidApplication()) }
     single<SharedPreferences.Editor> { getSharedPrefs(androidApplication()).edit() }

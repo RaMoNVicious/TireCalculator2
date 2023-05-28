@@ -89,14 +89,14 @@
             app:layout_constraintStart_toEndOf="@id/guideCenter">
 
             <TextView
-                android:id="@+id/lblTireMain"
+                android:id="@+id/lblTireCandidate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textAlignment="center" />
 
             <TextView
-                android:id="@+id/lblRimMain"
+                android:id="@+id/lblRimCandidate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text=""

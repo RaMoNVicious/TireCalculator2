@@ -1,4 +1,4 @@
-package com.tire.calc.smart.models
+package com.tire.calc.smart.models.domain
 
 import com.tire.calc.smart.R
 import com.tire.calc.smart.app.Constants

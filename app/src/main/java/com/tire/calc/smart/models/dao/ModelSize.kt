@@ -6,7 +6,7 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "model_tire_size",
+    tableName = "model_size",
     foreignKeys = [
         ForeignKey(
             entity = ModelTrim::class,
@@ -15,16 +15,16 @@ import androidx.room.PrimaryKey
         ),
         ForeignKey(
             entity = TireSize::class,
-            childColumns = ["tire_size_id"],
+            childColumns = ["size_id"],
             parentColumns = ["id"]
         )
     ]
 )
-data class ModelTireSize(
+data class ModelSize(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
     @ColumnInfo(name = "model_trim_id")
     val modelTrimId: Long,
-    @ColumnInfo(name = "tire_size_id")
+    @ColumnInfo(name = "size_id")
     val tireSizeId: Long
 )
