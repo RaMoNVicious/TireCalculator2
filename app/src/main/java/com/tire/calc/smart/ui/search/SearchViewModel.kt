@@ -27,7 +27,7 @@ class SearchViewModel(
                     manufacturerName = grouped.key,
                     models = grouped.value.map {
                         SearchModel(
-                            modelId = it.modelId.toInt(),
+                            modelId = it.modelId,
                             modelName = it.modelName
                         )
                     }
@@ -39,41 +39,12 @@ class SearchViewModel(
     }
 
 
-    fun getModels() {
+    private fun getModels() {
         viewModelScope.launch(Dispatchers.IO) {
             ensureActive()
             manufacturerModelRepository
                 .getAll()
                 .collect { _manufacturers.postValue(it.toSearch()) }
-
-            //_manufacturers.postValue(result)
-
-            /*_manufacturers.postValue(
-                listOf(
-                    SearchManufacturer(
-                        manufacturerName = "Audi",
-                        models = listOf(
-                            SearchModel(modelName = "A1", modelId = 1),
-                            SearchModel(modelName = "A2", modelId = 2),
-                            SearchModel(modelName = "A3", modelId = 3),
-                            SearchModel(modelName = "A4", modelId = 4),
-                        ),
-                    ),
-                    SearchManufacturer(
-                        manufacturerName = "VW",
-                        models = listOf(
-                            SearchModel(modelName = "Polo", modelId = 5),
-                            SearchModel(modelName = "Golf", modelId = 6),
-                            SearchModel(modelName = "Passat", modelId = 7),
-                            SearchModel(modelName = "Arteon", modelId = 8),
-                            SearchModel(modelName = "T-Cross", modelId = 9),
-                            SearchModel(modelName = "T-Roc", modelId = 10),
-                            SearchModel(modelName = "Tiguan", modelId = 11),
-                            SearchModel(modelName = "Taureg", modelId = 12),
-                        ),
-                    ),
-                )
-            )*/
         }
     }
 

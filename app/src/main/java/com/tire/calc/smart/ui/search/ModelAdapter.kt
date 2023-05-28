@@ -1,6 +1,5 @@
 package com.tire.calc.smart.ui.search
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -11,7 +10,12 @@ import com.tire.calc.smart.R
 import com.tire.calc.smart.databinding.ListItemBrandModelsBinding
 import com.tire.calc.smart.models.SearchManufacturer
 
-class SearchModelAdapter : RecyclerView.Adapter<SearchModelAdapter.SearchModelVH>() {
+class ModelAdapter(private val onItemClickListener: OnClickListener)
+    : RecyclerView.Adapter<ModelAdapter.SearchModelVH>()
+{
+    interface OnClickListener {
+        fun onItemClick(modelId: Long)
+    }
 
     private var _items = emptyList<SearchManufacturer>()
 
@@ -42,7 +46,7 @@ class SearchModelAdapter : RecyclerView.Adapter<SearchModelAdapter.SearchModelVH
             val chip = Chip(holder.pnlModels.context)
             chip.text = searchModel.modelName
             chip.setOnClickListener {
-                Log.d("SEARCH ITEM", "${searchModel.modelName} clicked!")
+                onItemClickListener.onItemClick(searchModel.modelId)
             }
             holder.pnlModels.addView(chip)
         }

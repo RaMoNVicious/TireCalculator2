@@ -25,6 +25,8 @@ abstract class DatabaseService : RoomDatabase() {
 
     abstract fun modelDao(): ModelDao
 
+    abstract fun modelSizeDao(): ModelSizeDao
+
     companion object {
 
         @Volatile
@@ -45,6 +47,15 @@ abstract class DatabaseService : RoomDatabase() {
                 ).addCallback(object : Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) {
                         super.onCreate(db)
+
+                        db.insert(
+                            "manufacturer",
+                            OnConflictStrategy.IGNORE,
+                            ContentValues().apply {
+                                put("name", "Favorites")
+                                put("logo_url", "")
+                            }
+                        )
                         db.insert(
                             "manufacturer",
                             OnConflictStrategy.IGNORE,
@@ -66,8 +77,16 @@ abstract class DatabaseService : RoomDatabase() {
                             "model",
                             OnConflictStrategy.IGNORE,
                             ContentValues().apply {
-                                put("name", "ARX")
+                                put("name", "SYSTEM")
                                 put("manufacturer_id", "1")
+                            }
+                        )
+                        db.insert(
+                            "model",
+                            OnConflictStrategy.IGNORE,
+                            ContentValues().apply {
+                                put("name", "ARX")
+                                put("manufacturer_id", "2")
                             }
                         )
                         db.insert(
@@ -75,7 +94,7 @@ abstract class DatabaseService : RoomDatabase() {
                             OnConflictStrategy.IGNORE,
                             ContentValues().apply {
                                 put("name", "CDX")
-                                put("manufacturer_id", "1")
+                                put("manufacturer_id", "2")
                             }
                         )
                         db.insert(
@@ -83,7 +102,7 @@ abstract class DatabaseService : RoomDatabase() {
                             OnConflictStrategy.IGNORE,
                             ContentValues().apply {
                                 put("name", "Integra")
-                                put("manufacturer_id", "1")
+                                put("manufacturer_id", "2")
                             }
                         )
                         db.insert(
@@ -91,7 +110,7 @@ abstract class DatabaseService : RoomDatabase() {
                             OnConflictStrategy.IGNORE,
                             ContentValues().apply {
                                 put("name", "Fiesta")
-                                put("manufacturer_id", "2")
+                                put("manufacturer_id", "3")
                             }
                         )
                         db.insert(
@@ -99,7 +118,7 @@ abstract class DatabaseService : RoomDatabase() {
                             OnConflictStrategy.IGNORE,
                             ContentValues().apply {
                                 put("name", "Focus")
-                                put("manufacturer_id", "2")
+                                put("manufacturer_id", "3")
                             }
                         )
 
@@ -107,7 +126,7 @@ abstract class DatabaseService : RoomDatabase() {
                             "model_trim",
                             OnConflictStrategy.REPLACE,
                             ContentValues().apply {
-                                put("name", "SE")
+                                put("name", "Tire Reference")
                                 put("model_id", "1")
                             }
                         )
@@ -115,7 +134,23 @@ abstract class DatabaseService : RoomDatabase() {
                             "model_trim",
                             OnConflictStrategy.REPLACE,
                             ContentValues().apply {
-                                put("name", "SX")
+                                put("name", "Tire Candidate")
+                                put("model_id", "1")
+                            }
+                        )
+                        db.insert(
+                            "model_trim",
+                            OnConflictStrategy.REPLACE,
+                            ContentValues().apply {
+                                put("name", "Favorites")
+                                put("model_id", "1")
+                            }
+                        )
+                        db.insert(
+                            "model_trim",
+                            OnConflictStrategy.REPLACE,
+                            ContentValues().apply {
+                                put("name", "SE")
                                 put("model_id", "2")
                             }
                         )
@@ -123,7 +158,15 @@ abstract class DatabaseService : RoomDatabase() {
                             "model_trim",
                             OnConflictStrategy.REPLACE,
                             ContentValues().apply {
-                                put("name", "Type-R")
+                                put("name", "SE")
+                                put("model_id", "2")
+                            }
+                        )
+                        db.insert(
+                            "model_trim",
+                            OnConflictStrategy.REPLACE,
+                            ContentValues().apply {
+                                put("name", "SX")
                                 put("model_id", "3")
                             }
                         )
@@ -131,7 +174,7 @@ abstract class DatabaseService : RoomDatabase() {
                             "model_trim",
                             OnConflictStrategy.REPLACE,
                             ContentValues().apply {
-                                put("name", "ST")
+                                put("name", "Type-R")
                                 put("model_id", "4")
                             }
                         )
@@ -147,8 +190,16 @@ abstract class DatabaseService : RoomDatabase() {
                             "model_trim",
                             OnConflictStrategy.REPLACE,
                             ContentValues().apply {
+                                put("name", "ST")
+                                put("model_id", "6")
+                            }
+                        )
+                        db.insert(
+                            "model_trim",
+                            OnConflictStrategy.REPLACE,
+                            ContentValues().apply {
                                 put("name", "RS")
-                                put("model_id", "5")
+                                put("model_id", "7")
                             }
                         )
 
@@ -193,7 +244,7 @@ abstract class DatabaseService : RoomDatabase() {
                             OnConflictStrategy.REPLACE,
                             ContentValues().apply {
                                 put("model_trim_id", "1")
-                                put("tire_size_id", "4")
+                                put("tire_size_id", "2")
                             }
                         )
                         db.insert(
@@ -201,15 +252,7 @@ abstract class DatabaseService : RoomDatabase() {
                             OnConflictStrategy.REPLACE,
                             ContentValues().apply {
                                 put("model_trim_id", "2")
-                                put("tire_size_id", "4")
-                            }
-                        )
-                        db.insert(
-                            "model_tire_size",
-                            OnConflictStrategy.REPLACE,
-                            ContentValues().apply {
-                                put("model_trim_id", "2")
-                                put("tire_size_id", "5")
+                                put("tire_size_id", "1")
                             }
                         )
                         db.insert(
@@ -217,9 +260,18 @@ abstract class DatabaseService : RoomDatabase() {
                             OnConflictStrategy.REPLACE,
                             ContentValues().apply {
                                 put("model_trim_id", "3")
-                                put("tire_size_id", "5")
+                                put("tire_size_id", "2")
                             }
                         )
+                        db.insert(
+                            "model_tire_size",
+                            OnConflictStrategy.REPLACE,
+                            ContentValues().apply {
+                                put("model_trim_id", "3")
+                                put("tire_size_id", "3")
+                            }
+                        )
+
                         db.insert(
                             "model_tire_size",
                             OnConflictStrategy.REPLACE,
@@ -249,6 +301,38 @@ abstract class DatabaseService : RoomDatabase() {
                             OnConflictStrategy.REPLACE,
                             ContentValues().apply {
                                 put("model_trim_id", "6")
+                                put("tire_size_id", "5")
+                            }
+                        )
+                        db.insert(
+                            "model_tire_size",
+                            OnConflictStrategy.REPLACE,
+                            ContentValues().apply {
+                                put("model_trim_id", "7")
+                                put("tire_size_id", "4")
+                            }
+                        )
+                        db.insert(
+                            "model_tire_size",
+                            OnConflictStrategy.REPLACE,
+                            ContentValues().apply {
+                                put("model_trim_id", "8")
+                                put("tire_size_id", "4")
+                            }
+                        )
+                        db.insert(
+                            "model_tire_size",
+                            OnConflictStrategy.REPLACE,
+                            ContentValues().apply {
+                                put("model_trim_id", "8")
+                                put("tire_size_id", "5")
+                            }
+                        )
+                        db.insert(
+                            "model_tire_size",
+                            OnConflictStrategy.REPLACE,
+                            ContentValues().apply {
+                                put("model_trim_id", "9")
                                 put("tire_size_id", "5")
                             }
                         )

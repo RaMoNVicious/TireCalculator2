@@ -5,7 +5,9 @@ import android.content.SharedPreferences
 import com.tire.calc.smart.repositories.DatabaseService
 import com.tire.calc.smart.repositories.ManufacturerModelRepository
 import com.tire.calc.smart.repositories.ManufacturerRepository
+import com.tire.calc.smart.repositories.ModelSizeRepository
 import com.tire.calc.smart.ui.main.MainViewModel
+import com.tire.calc.smart.ui.modelsize.ModelSizeViewModel
 import com.tire.calc.smart.ui.search.SearchViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -14,12 +16,15 @@ import org.koin.dsl.module
 val appModule = module {
     viewModel { MainViewModel(get(), get()) }
     viewModel { SearchViewModel(get()) }
+    viewModel { ModelSizeViewModel(get()) }
 
     single { DatabaseService.getDatabase(androidApplication()).manufacturerDao() }
     single { DatabaseService.getDatabase(androidApplication()).manufacturerModelDao() }
     single { DatabaseService.getDatabase(androidApplication()).modelDao() }
+    single { DatabaseService.getDatabase(androidApplication()).modelSizeDao() }
     single { ManufacturerRepository(get()) }
     single { ManufacturerModelRepository(get()) }
+    single { ModelSizeRepository(get()) }
 
     single { getSharedPrefs(androidApplication()) }
     single<SharedPreferences.Editor> { getSharedPrefs(androidApplication()).edit() }
