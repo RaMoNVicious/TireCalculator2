@@ -41,4 +41,9 @@
     <color name="text_value">@color/text_accent</color>
 
     <color name="text_button_dropdown">@color/text_normal</color>
+
+    <color name="ruler_tick">@color/black</color>
+    <color name="ruler_tick_tint_list">@color/text_label</color>
+    <color name="ruler_tick_tint_guide">@color/text_accent</color>
+    <color name="ruler_text">@color/text_normal</color>
 </resources>

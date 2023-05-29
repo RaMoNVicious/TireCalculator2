@@ -8,7 +8,7 @@
     <dimen name="margin_x6">24dp</dimen>
     <dimen name="margin_x8">32dp</dimen>
     <dimen name="margin_x9">36dp</dimen>
-    <dimen name="margin_x10">40dp</dimen>
+    <dimen name="margin_x10">48dp</dimen>
 
     <dimen name="edit_text_height">48dp</dimen>
 

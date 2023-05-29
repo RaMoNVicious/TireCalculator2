@@ -1,11 +1,13 @@
 package com.tire.calc.smart.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.tire.calc.smart.R
 import com.tire.calc.smart.app.Constants
 import com.tire.calc.smart.databinding.ActivitySizeBinding
+import com.tire.calc.smart.ui.adapters.SelectorAdapter
 
 class SizeActivity : AppCompatActivity() {
     private lateinit var _binding: ActivitySizeBinding
@@ -26,6 +28,15 @@ class SizeActivity : AppCompatActivity() {
                 }
             )
 
+            /*val items = (45..130 step 5).toList().map { it.toFloat() / 10F }
+            _binding.listSizes.adapter = SelectorAdapter(
+                items = items.map { "%.1f".format(it) },
+                onClickListener = object : SelectorAdapter.OnClickListener {
+                    override fun onClick(index: Int) {
+                        Log.d("Ruler", "Selected value = ${items[index]}")
+                    }
+                }
+            )*/
             // TODO:
         }
     }

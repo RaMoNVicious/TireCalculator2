@@ -22,7 +22,6 @@ class SearchFragment : Fragment() {
 
     private lateinit var adapter: ModelAdapter
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
