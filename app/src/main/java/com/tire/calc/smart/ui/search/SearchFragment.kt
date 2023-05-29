@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.tire.calc.smart.R
 import com.tire.calc.smart.databinding.FragmentSearchByModelBinding
+import com.tire.calc.smart.ui.adapters.ModelAdapter
 import com.tire.calc.smart.ui.modelsize.ModelSizeFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

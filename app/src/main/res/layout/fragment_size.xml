@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="isFavorite"
+            type="Boolean" />
 
     </data>
 
@@ -21,22 +24,43 @@
             app:layout_constraintGuide_percent="0.5" />
 
         <TextView
+            android:id="@+id/txtTitle"
+            style="@style/Label.Title"
+            android:layout_marginStart="@dimen/margin_x8"
+            android:text="@string/wheel_size_title"
+            android:transitionName="txtTitle"
+            app:layout_constraintBottom_toBottomOf="@id/btnFavorites"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btnFavorites" />
+
+        <ImageButton
+            android:id="@+id/btnFavorites"
+            style="@style/Button.Image"
+            android:layout_marginHorizontal="@dimen/margin_x8"
+            android:layout_marginVertical="@dimen/margin_x4"
+            android:contentDescription="@string/content_description_ok"
+            android:src="@{isFavorite ? @drawable/ic_favorite_on : @drawable/ic_favorite_off, default=@drawable/ic_favorite_off}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/text_label" />
+
+        <TextView
             android:id="@+id/lblRimSize"
             style="@style/Label.Dialog"
             android:layout_marginStart="@dimen/margin_x8"
-            android:layout_marginTop="@dimen/margin_x8"
+            android:layout_marginTop="@dimen/margin_x4"
             android:layout_marginEnd="@dimen/margin_x8"
+            android:text="@string/wheel_size_rim_label"
             android:textSize="18sp"
-            android:text="rim size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/btnFavorites" />
 
         <Button
             android:id="@+id/btnRimWidth"
             style="@style/Button.Size"
             android:layout_marginTop="@dimen/margin_x4"
-            android:text="5.5"
+            android:text="@string/default_rim_width"
             app:layout_constraintEnd_toEndOf="@id/guideCenter"
             app:layout_constraintStart_toStartOf="@id/guideCenter"
             app:layout_constraintTop_toBottomOf="@id/lblRimSize" />
@@ -45,7 +69,7 @@
             android:id="@+id/btnRimDiameter"
             style="@style/Button.Size"
             android:layout_marginEnd="@dimen/margin_x8"
-            android:text="23"
+            android:text="@string/default_rim_height"
             app:layout_constraintBaseline_toBaselineOf="@id/btnRimWidth"
             app:layout_constraintEnd_toStartOf="@id/btnRimWidth" />
 
@@ -53,7 +77,7 @@
             android:id="@+id/btnRimET"
             style="@style/Button.Size"
             android:layout_marginStart="@dimen/margin_x8"
-            android:text="-48"
+            android:text="@string/default_rim_et"
             app:layout_constraintBaseline_toBaselineOf="@id/btnRimWidth"
             app:layout_constraintStart_toEndOf="@id/btnRimWidth" />
 
@@ -61,7 +85,7 @@
             android:id="@+id/lblRimSizeSplitter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="X"
+            android:text="@string/wheel_size_rim_separator"
             android:textSize="24sp"
             app:layout_constraintBaseline_toBaselineOf="@id/btnRimWidth"
             app:layout_constraintEnd_toStartOf="@id/btnRimWidth"
@@ -71,8 +95,8 @@
             android:id="@+id/lblRimDiameter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/wheel_size_rim_height"
             android:textSize="12sp"
-            android:text="diameter"
             app:layout_constraintEnd_toEndOf="@id/btnRimDiameter"
             app:layout_constraintStart_toStartOf="@id/btnRimDiameter"
             app:layout_constraintTop_toBottomOf="@id/btnRimDiameter" />
@@ -81,8 +105,8 @@
             android:id="@+id/lblRimWidth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/wheel_size_rim_width"
             android:textSize="12sp"
-            android:text="width"
             app:layout_constraintEnd_toEndOf="@id/btnRimWidth"
             app:layout_constraintStart_toStartOf="@id/btnRimWidth"
             app:layout_constraintTop_toBottomOf="@id/btnRimWidth" />
@@ -91,8 +115,8 @@
             android:id="@+id/lblRimET"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/wheel_size_rim_et"
             android:textSize="12sp"
-            android:text="ET"
             app:layout_constraintEnd_toEndOf="@id/btnRimET"
             app:layout_constraintStart_toStartOf="@id/btnRimET"
             app:layout_constraintTop_toBottomOf="@id/btnRimET" />
@@ -103,8 +127,8 @@
             android:layout_marginStart="@dimen/margin_x8"
             android:layout_marginTop="@dimen/margin_x8"
             android:layout_marginEnd="@dimen/margin_x8"
+            android:text="@string/wheel_size_tire_label"
             android:textSize="18sp"
-            android:text="tire size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/lblRimWidth" />
@@ -113,7 +137,7 @@
             android:id="@+id/btnTireHeight"
             style="@style/Button.Size"
             android:layout_marginTop="@dimen/margin_x4"
-            android:text="10.0"
+            android:text="@string/default_tire_height"
             app:layout_constraintEnd_toEndOf="@id/guideCenter"
             app:layout_constraintStart_toStartOf="@id/guideCenter"
             app:layout_constraintTop_toBottomOf="@id/lblTireSize" />
@@ -122,7 +146,7 @@
             android:id="@+id/btnTireWidth"
             style="@style/Button.Size"
             android:layout_marginEnd="@dimen/margin_x8"
-            android:text="33.0"
+            android:text="@string/default_tire_width"
             app:layout_constraintBaseline_toBaselineOf="@id/btnTireHeight"
             app:layout_constraintEnd_toStartOf="@id/btnTireHeight" />
 
@@ -130,7 +154,7 @@
             android:id="@+id/btnTireDiameter"
             style="@style/Button.Size"
             android:layout_marginStart="@dimen/margin_x8"
-            android:text="R23"
+            android:text="@string/default_tire_diameter"
             app:layout_constraintBaseline_toBaselineOf="@id/btnTireHeight"
             app:layout_constraintStart_toEndOf="@id/btnTireHeight" />
 
@@ -138,7 +162,7 @@
             android:id="@+id/lblTireSizeSplitter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="/"
+            android:text="@string/wheel_size_tire_separator"
             android:textSize="24sp"
             app:layout_constraintBaseline_toBaselineOf="@id/btnTireHeight"
             app:layout_constraintEnd_toStartOf="@id/btnTireHeight"
@@ -148,8 +172,8 @@
             android:id="@+id/lblTireWidth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/wheel_size_tire_width"
             android:textSize="12sp"
-            android:text="width"
             app:layout_constraintEnd_toEndOf="@id/btnTireWidth"
             app:layout_constraintStart_toStartOf="@id/btnTireWidth"
             app:layout_constraintTop_toBottomOf="@id/btnTireWidth" />
@@ -158,8 +182,8 @@
             android:id="@+id/lblTireHeight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/wheel_size_tire_height"
             android:textSize="12sp"
-            android:text="height"
             app:layout_constraintEnd_toEndOf="@id/btnTireHeight"
             app:layout_constraintStart_toStartOf="@id/btnTireHeight"
             app:layout_constraintTop_toBottomOf="@id/btnTireHeight" />
@@ -168,8 +192,8 @@
             android:id="@+id/lblTireDiameter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/wheel_size_tire_diameter"
             android:textSize="12sp"
-            android:text="diameter"
             app:layout_constraintEnd_toEndOf="@id/btnTireDiameter"
             app:layout_constraintStart_toStartOf="@id/btnTireDiameter"
             app:layout_constraintTop_toBottomOf="@id/btnTireDiameter" />
@@ -188,11 +212,12 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnByCarModel"
             style="@style/Button.Link"
-            android:layout_marginStart="@dimen/margin_x8"
-            android:text="Select by Car Model"
+            android:layout_marginStart="@dimen/margin_x4"
+            android:paddingHorizontal="@dimen/margin_x4"
+            android:text="@string/wheel_size_search_by_car_model"
+            app:layout_constraintBottom_toBottomOf="@id/btnClose"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/btnClose"
-            app:layout_constraintBottom_toBottomOf="@id/btnClose"/>
+            app:layout_constraintTop_toTopOf="@id/btnClose" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

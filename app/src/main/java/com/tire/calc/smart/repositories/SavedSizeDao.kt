@@ -25,5 +25,4 @@ interface SavedSizeDao {
             INNER JOIN favorite_size ON favorite_size.size_id = tire_size.id"""
     )
     suspend fun getFavoriteSize(): List<TireSize>
-
 }

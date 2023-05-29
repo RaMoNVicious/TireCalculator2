@@ -8,12 +8,14 @@ import com.tire.calc.smart.models.dao.ManufacturerModel
 import com.tire.calc.smart.models.domain.Manufacturer
 import com.tire.calc.smart.models.domain.Model
 import com.tire.calc.smart.repositories.ManufacturerModelRepository
+import com.tire.calc.smart.repositories.SavedSizeRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 
 class SearchViewModel(
-    private val manufacturerModelRepository: ManufacturerModelRepository
+    private val manufacturerModelRepository: ManufacturerModelRepository,
+    private val savedSizeRepository: SavedSizeRepository
 ) : ViewModel() {
 
     private val _manufacturers: MutableLiveData<List<Manufacturer>> =
@@ -42,9 +44,28 @@ class SearchViewModel(
     private fun getModels() {
         viewModelScope.launch(Dispatchers.IO) {
             ensureActive()
+
+            val items = mutableListOf<ManufacturerModel>()
             manufacturerModelRepository
                 .getAll()
-                .collect { _manufacturers.postValue(it.toSearch()) }
+                .collect { items.addAll(it) }
+
+            savedSizeRepository
+                .getFavorites()
+                .collect { favorites ->
+                    items.addAll(
+                        0,
+                        favorites.map {
+                            ManufacturerModel(
+                                manufacturerName = "Favorites",
+                                modelName = it.size,
+                                modelId = it.id
+                            )
+                        }
+                    )
+                }
+
+            _manufacturers.postValue(items.toSearch())
         }
     }
 

@@ -3,10 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-
-    </data>
+    <data/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -17,7 +14,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/list_item_brand_models"
+            tools:listitem="@layout/list_item_search"
             app:layout_constraintBottom_toTopOf="@id/txtSearch"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -25,14 +22,9 @@
 
         <EditText
             android:id="@+id/txtSearch"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_x8"
-            android:layout_marginVertical="@dimen/margin_x8"
-            android:background="@drawable/bg_wheel_label"
-            android:backgroundTint="@color/accent_2"
-            android:hint="Enter car model name"
-            android:padding="@dimen/margin_x4"
+            style="@style/InputText.SearchBottom"
+            android:hint="@string/search_by_model_input_hint"
+            app:layout_constraintTop_toBottomOf="@id/lstSearch"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

@@ -126,6 +126,12 @@ class SizeFragment : BottomSheetDialogFragment() {
                             getSizeBundle(Constants.SIZE_RIM_HEIGHT, wheelSize)
                         )
                 }
+
+                viewModel.checkIsFavorite(wheelSize)
+            }
+
+            viewModel.isFavorite.observe(viewLifecycleOwner) {
+                isFavorite = it ?: false
             }
 
             viewModel.getWheel(selectedWheel)

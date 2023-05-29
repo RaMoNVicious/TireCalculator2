@@ -1,17 +1,16 @@
-package com.tire.calc.smart.ui.search
+package com.tire.calc.smart.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
 import com.tire.calc.smart.R
-import com.tire.calc.smart.databinding.ListItemBrandModelsBinding
+import com.tire.calc.smart.databinding.ListItemSearchBinding
 import com.tire.calc.smart.models.domain.Manufacturer
 
 class ModelAdapter(private val onItemClickListener: OnClickListener)
-    : RecyclerView.Adapter<ModelAdapter.SearchModelVH>()
+    : RecyclerView.Adapter<SearchVH>()
 {
     interface OnClickListener {
         fun onItemClick(modelId: Long)
@@ -24,11 +23,10 @@ class ModelAdapter(private val onItemClickListener: OnClickListener)
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchModelVH {
-        return SearchModelVH(
-            DataBindingUtil.inflate(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchVH {
+        return SearchVH(
+            ListItemSearchBinding.inflate(
                 LayoutInflater.from(parent.context),
-                R.layout.list_item_brand_models,
                 parent,
                 false
             )
@@ -37,25 +35,24 @@ class ModelAdapter(private val onItemClickListener: OnClickListener)
 
     override fun getItemCount(): Int = _items.size
 
-    override fun onBindViewHolder(holder: SearchModelVH, position: Int) {
+    override fun onBindViewHolder(holder: SearchVH, position: Int) {
         val item = _items[position]
-        holder.brandName.text = item.manufacturerName
+        holder.txtTitle.text = item.manufacturerName
 
-        holder.pnlModels.removeAllViews()
+        holder.pnlItems.removeAllViews()
+        val inflater = LayoutInflater.from(holder.pnlItems.context)
         item.models.forEach { searchModel ->
-            val chip = Chip(holder.pnlModels.context)
+            val chip = inflater.inflate(
+                R.layout.chip_model,
+                holder.pnlItems,
+                false
+            ) as Chip
+
             chip.text = searchModel.modelName
             chip.setOnClickListener {
                 onItemClickListener.onItemClick(searchModel.modelId)
             }
-            holder.pnlModels.addView(chip)
+            holder.pnlItems.addView(chip)
         }
-    }
-
-    inner class SearchModelVH(binding: ListItemBrandModelsBinding) :
-        RecyclerView.ViewHolder(binding.root)
-    {
-        val brandName: Chip = binding.brandName;
-        val pnlModels: ChipGroup = binding.pnlModels;
     }
 }

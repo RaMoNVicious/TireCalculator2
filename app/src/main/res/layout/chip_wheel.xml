@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.chip.Chip
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/ListChip.Wheel"
+    android:text="@string/default_text_brand_name"
+    android:textAppearance="@style/ListChip.Wheel" />

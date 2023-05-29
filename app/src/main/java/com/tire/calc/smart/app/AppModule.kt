@@ -17,7 +17,7 @@ import org.koin.dsl.module
 
 val appModule = module {
     viewModel { MainViewModel(get()) }
-    viewModel { SearchViewModel(get()) }
+    viewModel { SearchViewModel(get(), get()) }
     viewModel { SizeViewModel(get()) }
     viewModel { ModelSizeViewModel(get()) }
 

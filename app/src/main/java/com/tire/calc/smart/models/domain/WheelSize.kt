@@ -1,5 +1,6 @@
 package com.tire.calc.smart.models.domain
 
+import com.tire.calc.smart.R
 import java.io.Serializable
 
 data class WheelSize(
@@ -11,7 +12,15 @@ data class WheelSize(
     val isOffroad: Boolean = false
 ) : Serializable {
     fun toEntity(): String {
-        return "${tireWidth}/${tireHeight} ${rimWidth}x${rimHeight} ET${rimEt}"
+        return String.format(
+            "%.0f/%.0f %.1fJx%.0f ET%.0f",
+            tireWidth,
+            tireHeight,
+            rimWidth,
+            rimHeight,
+            rimEt
+        )
+        //"${tireWidth}/${tireHeight} ${rimWidth}x${rimHeight} ET${rimEt}"
     }
 
     companion object {

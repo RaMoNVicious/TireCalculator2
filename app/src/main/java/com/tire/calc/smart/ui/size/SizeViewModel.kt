@@ -17,6 +17,9 @@ class SizeViewModel(
     private val _wheel: MutableLiveData<WheelSize> = MutableLiveData<WheelSize>()
     val wheel: LiveData<WheelSize> = _wheel
 
+    private val _isFavorite: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
+    val isFavorite: LiveData<Boolean> = _isFavorite
+
     fun getWheel(wheelSelected: String) {
         viewModelScope.launch(Dispatchers.IO) {
             ensureActive()
@@ -36,6 +39,25 @@ class SizeViewModel(
                         }
             }
         }
+    }
+
+    fun checkIsFavorite(wheelSize: WheelSize) {
+        viewModelScope.launch(Dispatchers.IO) {
+            ensureActive()
+            savedSizeRepository
+                .getFavorites()
+                .collect { tireSizes ->
+                    _isFavorite.postValue(
+                        tireSizes
+                            .map { it.size }
+                            .contains(wheelSize.toEntity())
+                    )
+                }
+        }
+    }
+
+    fun setFavorite() {
+        // TODO:
     }
 
 }
