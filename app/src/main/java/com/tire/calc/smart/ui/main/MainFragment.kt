@@ -6,10 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.findNavController
 import com.tire.calc.smart.R
 import com.tire.calc.smart.app.Constants
 import com.tire.calc.smart.databinding.FragmentMainBinding
+import com.tire.calc.smart.ui.size.SizeFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment() {
@@ -29,35 +31,15 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        _binding.lifecycleOwner = this
-
         _binding.apply {
+            lifecycleOwner = this@MainFragment
+
             sizeReference.setOnClickListener {
-                activity
-                    ?.findNavController(R.id.nav_host_fragment_container)
-                    ?.navigate(
-                        R.id.action_mainFragment_to_sizeFragment,
-                        Bundle().apply {
-                            putString(
-                                Constants.SELECTED_WHEEL,
-                                Constants.SELECTED_WHEEL_REFERENCE
-                            )
-                        }
-                    )
+                editSize(Constants.SELECTED_WHEEL_REFERENCE)
             }
 
             sizeCandidate.setOnClickListener {
-                activity
-                    ?.findNavController(R.id.nav_host_fragment_container)
-                    ?.navigate(
-                        R.id.action_mainFragment_to_sizeFragment,
-                        Bundle().apply {
-                            putString(
-                                Constants.SELECTED_WHEEL,
-                                Constants.SELECTED_WHEEL_CANDIDATE
-                            )
-                        }
-                    )
+                editSize(Constants.SELECTED_WHEEL_CANDIDATE)
             }
         }
 
@@ -86,7 +68,23 @@ class MainFragment : Fragment() {
                 lblRimCandidate.text = wheelInfo.getRimLabel()
             }
         }
+    }
 
-        //viewModel.updateCarInfo()
+    private fun editSize(selectedWheel: String) {
+        setFragmentResultListener(SizeFragment.SIZE_DIALOG_FOR_RESULT) { key, bundle ->
+            viewModel.getWheels()
+        }
+
+        activity
+            ?.findNavController(R.id.nav_host_fragment_container)
+            ?.navigate(
+                R.id.action_mainFragment_to_sizeFragment,
+                Bundle().apply {
+                    putString(
+                        Constants.SELECTED_WHEEL,
+                        selectedWheel
+                    )
+                }
+            )
     }
 }

@@ -2,7 +2,6 @@ package com.tire.calc.smart.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import com.tire.calc.smart.R
@@ -37,7 +36,7 @@ class ModelAdapter(private val onItemClickListener: OnClickListener)
 
     override fun onBindViewHolder(holder: SearchVH, position: Int) {
         val item = _items[position]
-        holder.txtTitle.text = item.manufacturerName
+        holder.txtTitle.text = item.name
 
         holder.pnlItems.removeAllViews()
         val inflater = LayoutInflater.from(holder.pnlItems.context)
@@ -48,9 +47,9 @@ class ModelAdapter(private val onItemClickListener: OnClickListener)
                 false
             ) as Chip
 
-            chip.text = searchModel.modelName
+            chip.text = searchModel.name
             chip.setOnClickListener {
-                onItemClickListener.onItemClick(searchModel.modelId)
+                onItemClickListener.onItemClick(searchModel.id)
             }
             holder.pnlItems.addView(chip)
         }

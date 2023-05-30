@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tire.calc.smart.databinding.ListItemSelectorBinding
 
-class SelectorAdapter : RecyclerView.Adapter<SelectorVH>() {
+class SizeAdapter : RecyclerView.Adapter<SizeVH>() {
 
     interface OnClickListener {
         fun onClick(index: Int)
@@ -21,8 +21,8 @@ class SelectorAdapter : RecyclerView.Adapter<SelectorVH>() {
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectorVH {
-        return SelectorVH(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SizeVH {
+        return SizeVH(
             ListItemSelectorBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -33,7 +33,7 @@ class SelectorAdapter : RecyclerView.Adapter<SelectorVH>() {
 
     override fun getItemCount(): Int = _items.size
 
-    override fun onBindViewHolder(holder: SelectorVH, position: Int) {
+    override fun onBindViewHolder(holder: SizeVH, position: Int) {
         holder.txtValue.text = _items[position]
         holder.txtValue.setOnClickListener {
             _onClickListener?.onClick(position)

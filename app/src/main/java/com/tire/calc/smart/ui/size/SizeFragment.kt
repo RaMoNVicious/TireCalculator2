@@ -7,7 +7,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import androidx.navigation.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.tire.calc.smart.R
@@ -16,7 +17,6 @@ import com.tire.calc.smart.databinding.FragmentSizeBinding
 import com.tire.calc.smart.models.domain.WheelSize
 import com.tire.calc.smart.ui.SizeActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
-
 
 class SizeFragment : BottomSheetDialogFragment() {
     private lateinit var _binding: FragmentSizeBinding
@@ -78,53 +78,28 @@ class SizeFragment : BottomSheetDialogFragment() {
                 btnTireDiameter.text = String.format("R%.0f", wheelSize.rimHeight)
 
                 btnRimDiameter.setOnClickListener {
-                    activity
-                        ?.findNavController(R.id.nav_host_fragment_container)
-                        ?.navigate(
-                            R.id.action_sizeFragment_to_sizeActivity,
-                            getSizeBundle(Constants.SIZE_RIM_HEIGHT, wheelSize)
-                        )
+                    getSize(Constants.SIZE_RIM_HEIGHT, wheelSize)
                 }
                 btnRimWidth.setOnClickListener {
-                    activity
-                        ?.findNavController(R.id.nav_host_fragment_container)
-                        ?.navigate(
-                            R.id.action_sizeFragment_to_sizeActivity,
-                            getSizeBundle(Constants.SIZE_RIM_WIDTH, wheelSize)
-                        )
+                    getSize(Constants.SIZE_RIM_WIDTH, wheelSize)
                 }
                 btnRimET.setOnClickListener {
-                    activity
-                        ?.findNavController(R.id.nav_host_fragment_container)
-                        ?.navigate(
-                            R.id.action_sizeFragment_to_sizeActivity,
-                            getSizeBundle(Constants.SIZE_RIM_ET, wheelSize)
-                        )
+                    getSize(Constants.SIZE_RIM_ET, wheelSize)
                 }
 
                 btnTireWidth.setOnClickListener {
-                    activity
-                        ?.findNavController(R.id.nav_host_fragment_container)
-                        ?.navigate(
-                            R.id.action_sizeFragment_to_sizeActivity,
-                            getSizeBundle(Constants.SIZE_TIRE_WIDTH, wheelSize)
-                        )
+                    getSize(Constants.SIZE_TIRE_WIDTH, wheelSize)
                 }
                 btnTireHeight.setOnClickListener {
-                    activity
-                        ?.findNavController(R.id.nav_host_fragment_container)
-                        ?.navigate(
-                            R.id.action_sizeFragment_to_sizeActivity,
-                            getSizeBundle(Constants.SIZE_TIRE_HEIGHT, wheelSize)
-                        )
+                    getSize(Constants.SIZE_TIRE_HEIGHT, wheelSize)
                 }
                 btnTireDiameter.setOnClickListener {
-                    activity
-                        ?.findNavController(R.id.nav_host_fragment_container)
-                        ?.navigate(
-                            R.id.action_sizeFragment_to_sizeActivity,
-                            getSizeBundle(Constants.SIZE_RIM_HEIGHT, wheelSize)
-                        )
+                    getSize(Constants.SIZE_RIM_HEIGHT, wheelSize)
+                }
+
+                btnClose.setOnClickListener {
+                    viewModel.saveWheel(selectedWheel)
+                    _binding.isLoading = true
                 }
 
                 viewModel.checkIsFavorite(wheelSize)
@@ -134,20 +109,52 @@ class SizeFragment : BottomSheetDialogFragment() {
                 isFavorite = it ?: false
             }
 
+            viewModel.saved.observe(viewLifecycleOwner) {
+                setFragmentResult(SIZE_DIALOG_FOR_RESULT, bundleOf())
+                dismiss()
+            }
+
             viewModel.getWheel(selectedWheel)
         }
     }
 
-    private fun getSizeBundle(sizeType: String, wheelSize: WheelSize): Bundle {
-        return Bundle().apply {
-            putString(Constants.SIZE_TYPE, sizeType)
-            putSerializable(Constants.SIZE_VALUE, wheelSize)
-        }
+    private fun getSize(sizeType: String, wheelSize: WheelSize) {
+        startActivityForResult(
+            Intent(activity, SizeActivity::class.java)
+                .apply {
+                    putExtra(Constants.SIZE_TYPE, sizeType)
+                    putExtra(
+                        Constants.SIZE_VALUE,
+                        when (sizeType) {
+                            Constants.SIZE_RIM_WIDTH -> wheelSize.rimWidth
+                            Constants.SIZE_RIM_HEIGHT -> wheelSize.rimHeight
+                            Constants.SIZE_RIM_ET -> wheelSize.rimEt
+                            Constants.SIZE_TIRE_WIDTH -> wheelSize.tireWidth
+                            Constants.SIZE_TIRE_HEIGHT -> wheelSize.tireHeight
+                            else -> null
+                        }
+                    )
+                },
+            Constants.REQUEST_SIZE,
+        )
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        
+        if (requestCode == Constants.REQUEST_SIZE && resultCode == Activity.RESULT_OK) {
+            data?.takeIf { it.hasExtra(Constants.SIZE_TYPE) && it.hasExtra(Constants.SIZE_VALUE) }
+                ?.let {
+                    viewModel.setSize(
+                        it.getStringExtra(Constants.SIZE_TYPE) ?: "",
+                        it.getDoubleExtra(Constants.SIZE_VALUE, 0.0)
+                    )
+                }
+
+        }
+    }
+
+    companion object {
+        const val SIZE_DIALOG_FOR_RESULT = "SIZE_DIALOG_FOR_RESULT"
     }
 }

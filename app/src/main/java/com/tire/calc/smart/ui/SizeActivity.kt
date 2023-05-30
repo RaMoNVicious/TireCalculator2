@@ -1,20 +1,26 @@
 package com.tire.calc.smart.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import com.tire.calc.smart.R
 import com.tire.calc.smart.app.Constants
 import com.tire.calc.smart.databinding.ActivitySizeBinding
-import com.tire.calc.smart.ui.adapters.SelectorAdapter
 
 class SizeActivity : AppCompatActivity() {
+
     private lateinit var _binding: ActivitySizeBinding
+
+    lateinit var navController: NavController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         _binding = DataBindingUtil.setContentView(this, R.layout.activity_size)
+
+        navController = (supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment).navController
 
         if (intent.hasExtra(Constants.SIZE_TYPE) && intent.hasExtra(Constants.SIZE_VALUE)) {
             _binding.titleSize = getString(
@@ -27,17 +33,6 @@ class SizeActivity : AppCompatActivity() {
                     else -> R.string.app_name
                 }
             )
-
-            /*val items = (45..130 step 5).toList().map { it.toFloat() / 10F }
-            _binding.listSizes.adapter = SelectorAdapter(
-                items = items.map { "%.1f".format(it) },
-                onClickListener = object : SelectorAdapter.OnClickListener {
-                    override fun onClick(index: Int) {
-                        Log.d("Ruler", "Selected value = ${items[index]}")
-                    }
-                }
-            )*/
-            // TODO:
         }
     }
 }

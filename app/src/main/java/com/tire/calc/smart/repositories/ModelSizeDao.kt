@@ -2,19 +2,19 @@ package com.tire.calc.smart.repositories
 
 import androidx.room.Dao
 import androidx.room.Query
-import com.tire.calc.smart.models.dao.TrimSize
+import com.tire.calc.smart.models.dao.TrimWheelSize
 
 @Dao
 interface ModelSizeDao {
     @Query(
         """SELECT
-            model_trim.name AS model_trim_name, 
-            tire_size.id AS tire_size_id, 
-            tire_size.size AS tire_size_name
-            FROM model_trim
-            JOIN model_size ON model_trim.id = model_size.model_trim_id
-            JOIN tire_size ON model_size.size_id = tire_size.id
-            WHERE model_trim.model_id = :modelId"""
+            trim.name AS trim_name, 
+            wheel.id AS wheel_id, 
+            wheel.size AS wheel_size
+            FROM trim
+            JOIN trim_wheel ON trim.id = trim_wheel.trim_id
+            JOIN wheel ON trim_wheel.wheel_id = wheel.id
+            WHERE trim.model_id = :modelId"""
     )
-    suspend fun getTrimSizes(modelId: Long): List<TrimSize>
+    suspend fun getTrimWheelSize(modelId: Long): List<TrimWheelSize>
 }

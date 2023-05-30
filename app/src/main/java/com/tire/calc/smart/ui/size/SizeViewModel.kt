@@ -20,6 +20,9 @@ class SizeViewModel(
     private val _isFavorite: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
     val isFavorite: LiveData<Boolean> = _isFavorite
 
+    private val _saved: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
+    val saved: LiveData<Boolean> = _saved
+
     fun getWheel(wheelSelected: String) {
         viewModelScope.launch(Dispatchers.IO) {
             ensureActive()
@@ -28,14 +31,23 @@ class SizeViewModel(
                 Constants.SELECTED_WHEEL_REFERENCE ->
                     savedSizeRepository
                         .getReferenceSize()
-                        .collect {
-                            _wheel.postValue(WheelSize.fromEntity(it.size))
+                        .collect { selectedWheelSize ->
+                            _wheel.postValue(
+                                selectedWheelSize?.let {
+                                    WheelSize.fromEntity(it.wheelSize)
+                                } ?: WheelSize.defaultReference()
+                            )
                         }
+
                 Constants.SELECTED_WHEEL_CANDIDATE ->
                     savedSizeRepository
                         .getCandidateSize()
-                        .collect {
-                            _wheel.postValue(WheelSize.fromEntity(it.size))
+                        .collect { selectedWheelSize ->
+                            _wheel.postValue(
+                                selectedWheelSize?.let {
+                                    WheelSize.fromEntity(it.wheelSize)
+                                } ?: WheelSize.defaultCandidate()
+                            )
                         }
             }
         }
@@ -49,15 +61,57 @@ class SizeViewModel(
                 .collect { tireSizes ->
                     _isFavorite.postValue(
                         tireSizes
-                            .map { it.size }
+                            .map { it.wheelSize }
                             .contains(wheelSize.toEntity())
                     )
                 }
         }
     }
 
-    fun setFavorite() {
-        // TODO:
+    fun setSize(sizeType: String, size: Double) {
+        _wheel.value
+            ?.let { wheelSize ->
+            _wheel.postValue(
+                when (sizeType) {
+                    Constants.SIZE_RIM_WIDTH -> wheelSize.copy(rimWidth = size)
+                    Constants.SIZE_RIM_HEIGHT -> wheelSize.copy(rimHeight = size)
+                    Constants.SIZE_RIM_ET -> wheelSize.copy(rimEt = size)
+                    Constants.SIZE_TIRE_WIDTH -> wheelSize.copy(tireWidth = size)
+                    Constants.SIZE_TIRE_HEIGHT -> wheelSize.copy(tireHeight = size)
+                    else -> wheelSize
+                }
+            )
+
+            checkIsFavorite(wheelSize)
+        }
     }
 
+    fun saveWheel(wheelSelected: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            ensureActive()
+            _wheel.value?.let { wheelSize ->
+
+                if (wheelSelected == Constants.SELECTED_WHEEL_REFERENCE) {
+                    savedSizeRepository
+                        .setReferenceSize(wheelSize.toEntity())
+                        .collect { if (it != 0L) { _saved.postValue(true) } }
+                } else {
+                    savedSizeRepository
+                        .setCandidateSize(wheelSize.toEntity())
+                        .collect { if (it != 0L) { _saved.postValue(true) } }
+                }
+            }
+        }
+    }
+
+    fun setFavorite() {
+        viewModelScope.launch(Dispatchers.IO) {
+            ensureActive()
+
+            _wheel.value?.let {
+                savedSizeRepository.setFavorites(it.toEntity())
+                // TODO: update Fav Button state
+            }
+        }
+    }
 }

@@ -32,8 +32,14 @@ class MainViewModel(
             ensureActive()
             savedSizeRepository
                 .getReferenceSize()
-                .collect {
-                    _wheelReference.postValue(WheelInfo(WheelSize.fromEntity(it.size)))
+                .collect { selectedWheelSize ->
+                    _wheelReference.postValue(
+                        WheelInfo(
+                            selectedWheelSize?.let {
+                                WheelSize.fromEntity(it.wheelSize)
+                            } ?: WheelSize.defaultReference()
+                        )
+                    )
                 }
         }
 
@@ -41,8 +47,14 @@ class MainViewModel(
             ensureActive()
             savedSizeRepository
                 .getCandidateSize()
-                .collect {
-                    _wheelCandidate.postValue(WheelInfo(WheelSize.fromEntity(it.size)))
+                .collect { selectedWheelSize ->
+                    _wheelCandidate.postValue(
+                        WheelInfo(
+                            selectedWheelSize?.let {
+                                WheelSize.fromEntity(it.wheelSize)
+                            } ?: WheelSize.defaultCandidate()
+                        )
+                    )
                 }
         }
     }

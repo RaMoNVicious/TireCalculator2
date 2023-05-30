@@ -6,19 +6,18 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "model_trim",
+    tableName = "favorite_wheel",
     foreignKeys = [
         ForeignKey(
-            entity = Model::class,
+            entity = Wheel::class,
+            childColumns = ["wheel_id"],
             parentColumns = ["id"],
-            childColumns = ["model_id"],
         )
     ]
 )
-data class ModelTrim(
+data class FavoriteWheel(
     @PrimaryKey(autoGenerate = true)
-    val id: Long,
-    @ColumnInfo(name = "model_id")
-    val modelId: Long,
-    val name: String
+    val id: Long = 0,
+    @ColumnInfo(name = "wheel_id")
+    val wheelId: Long,
 )

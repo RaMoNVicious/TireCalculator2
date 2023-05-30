@@ -12,8 +12,8 @@ import kotlinx.coroutines.launch
 
 class SelectorViewModel(private val sizesRepository: SizesRepository) : ViewModel() {
 
-    private val _sizes: MutableLiveData<List<Float>> = MutableLiveData<List<Float>>()
-    val sizes: LiveData<List<Float>> = _sizes
+    private val _sizes: MutableLiveData<List<Double>> = MutableLiveData<List<Double>>()
+    val sizes: LiveData<List<Double>> = _sizes
 
     fun getSizes(sizeType: String) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -27,7 +27,7 @@ class SelectorViewModel(private val sizesRepository: SizesRepository) : ViewMode
                     Constants.SIZE_RIM_HEIGHT -> sizesRepository.rimHeight
                     Constants.SIZE_RIM_ET -> sizesRepository.rimEt
                     else -> emptyList()
-                }.map { it.toFloat() }
+                }.map { it.toDouble() }
             )
         }
     }

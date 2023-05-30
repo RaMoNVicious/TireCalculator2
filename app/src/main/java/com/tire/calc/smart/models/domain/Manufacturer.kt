@@ -1,6 +1,6 @@
 package com.tire.calc.smart.models.domain
 
 data class Manufacturer(
-    val manufacturerName: String,
+    val name: String,
     val models: List<Model>,
 )

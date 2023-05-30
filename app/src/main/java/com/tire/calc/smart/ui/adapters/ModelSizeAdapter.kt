@@ -3,15 +3,11 @@ package com.tire.calc.smart.ui.adapters
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
 import com.tire.calc.smart.R
-import com.tire.calc.smart.databinding.ListItemBrandModelsBinding
 import com.tire.calc.smart.databinding.ListItemSearchBinding
-import com.tire.calc.smart.models.domain.ModelTrimSizes
+import com.tire.calc.smart.models.domain.TrimWheels
 
 class ModelSizeAdapter(private val onItemClickListener: OnClickListener) :
     RecyclerView.Adapter<SearchVH>() {
@@ -20,9 +16,9 @@ class ModelSizeAdapter(private val onItemClickListener: OnClickListener) :
         fun onItemClick(sizeId: Long)
     }
 
-    private var _items = emptyList<ModelTrimSizes>()
+    private var _items = emptyList<TrimWheels>()
 
-    fun setItems(items: List<ModelTrimSizes>) {
+    fun setItems(items: List<TrimWheels>) {
         _items = items
         notifyDataSetChanged()
     }
@@ -41,21 +37,21 @@ class ModelSizeAdapter(private val onItemClickListener: OnClickListener) :
 
     override fun onBindViewHolder(holder: SearchVH, position: Int) {
         val item = _items[position]
-        holder.txtTitle.text = item.trimName
+        holder.txtTitle.text = item.name
 
         holder.pnlItems.removeAllViews()
         val inflater = LayoutInflater.from(holder.pnlItems.context)
-        item.tireSize.forEach { tireSize ->
+        item.wheels.forEach { tireSize ->
             val chip = inflater.inflate(
                 R.layout.chip_wheel,
                 holder.pnlItems,
                 false
             ) as Chip
 
-            chip.text = tireSize.sizeName
+            chip.text = tireSize.size
             chip.setOnClickListener {
                 Log.d("SEARCH ITEM", "$tireSize clicked!")
-                onItemClickListener.onItemClick(tireSize.sizeId)
+                onItemClickListener.onItemClick(tireSize.id)
             }
 
             holder.pnlItems.addView(chip)

@@ -1,6 +1,6 @@
 package com.tire.calc.smart.models.domain
 
-data class Model(
-    val id: Long,
+data class TrimWheels(
     val name: String,
+    val wheels: List<Wheel>,
 )

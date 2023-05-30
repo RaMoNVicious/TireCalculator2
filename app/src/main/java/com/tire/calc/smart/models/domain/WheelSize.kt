@@ -1,6 +1,5 @@
 package com.tire.calc.smart.models.domain
 
-import com.tire.calc.smart.R
 import java.io.Serializable
 
 data class WheelSize(
@@ -20,10 +19,14 @@ data class WheelSize(
             rimHeight,
             rimEt
         )
-        //"${tireWidth}/${tireHeight} ${rimWidth}x${rimHeight} ET${rimEt}"
     }
 
     companion object {
+
+        fun defaultReference()= fromEntity("215/40 7.0Jx17 ET49")
+
+        fun defaultCandidate() = fromEntity("195/60 6.0Jx15 ET50")
+
         fun fromEntity(src: String): WheelSize {
             val parts = src.split(" ", "/","x")
             return WheelSize(

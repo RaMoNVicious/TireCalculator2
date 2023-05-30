@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.SharedPreferences
 import com.tire.calc.smart.repositories.DatabaseService
 import com.tire.calc.smart.repositories.ManufacturerModelRepository
-import com.tire.calc.smart.repositories.ManufacturerRepository
 import com.tire.calc.smart.repositories.ModelSizeRepository
 import com.tire.calc.smart.repositories.SavedSizeRepository
 import com.tire.calc.smart.repositories.SizesRepository
@@ -24,16 +23,14 @@ val appModule = module {
     viewModel { ModelSizeViewModel(get()) }
     viewModel { SelectorViewModel(get()) }
 
-    single { DatabaseService.getDatabase(androidApplication()).manufacturerDao() }
+    single { DatabaseService.getDatabase(androidApplication()).tireSizeDao() }
     single { DatabaseService.getDatabase(androidApplication()).manufacturerModelDao() }
-    single { DatabaseService.getDatabase(androidApplication()).modelDao() }
     single { DatabaseService.getDatabase(androidApplication()).modelSizeDao() }
-    single { DatabaseService.getDatabase(androidApplication()).savedSizeDao() }
+    single { DatabaseService.getDatabase(androidApplication()).selectedSizeDao() }
 
-    single { ManufacturerRepository(get()) }
     single { ManufacturerModelRepository(get()) }
     single { ModelSizeRepository(get()) }
-    single { SavedSizeRepository(get()) }
+    single { SavedSizeRepository(get(), get()) }
     single { SizesRepository() }
 
     single { getSharedPrefs(androidApplication()) }

@@ -30,7 +30,7 @@
 
     <string name="select_model_title">Select by Car model</string>
     <string name="default_text_brand_name">brand_name</string>
-    <string name="default_rim_width">5.5</string>
+    <string name="default_rim_width">5.5J</string>
     <string name="default_rim_height">18</string>
     <string name="default_rim_et">45</string>
     <string name="default_tire_height">70</string>

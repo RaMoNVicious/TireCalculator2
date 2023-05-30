@@ -1,14 +1,15 @@
 package com.tire.calc.smart.ui.selector
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.tire.calc.smart.app.Constants
 import com.tire.calc.smart.databinding.FragmentSelectorBinding
-import com.tire.calc.smart.ui.adapters.SelectorAdapter
+import com.tire.calc.smart.ui.adapters.SizeAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SelectorFragment : Fragment() {
@@ -17,7 +18,7 @@ class SelectorFragment : Fragment() {
 
     private val viewModel: SelectorViewModel by viewModel()
 
-    private lateinit var adapter: SelectorAdapter
+    private lateinit var adapter: SizeAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,7 +38,7 @@ class SelectorFragment : Fragment() {
 
         _binding.lifecycleOwner = this
 
-        adapter = SelectorAdapter()
+        adapter = SizeAdapter()
         _binding.listSize.adapter = adapter
 
         activity?.intent
@@ -52,9 +53,17 @@ class SelectorFragment : Fragment() {
                                 else -> "%.0f".format(it)
                             }
                         },
-                        onClickListener = object : SelectorAdapter.OnClickListener {
+                        onClickListener = object : SizeAdapter.OnClickListener {
                             override fun onClick(index: Int) {
-                                Log.d("Ruler", "Selected item = ${items[index]}")
+                                activity?.let{
+                                    it.setResult(
+                                        Activity.RESULT_OK,
+                                        Intent()
+                                            .putExtra(Constants.SIZE_TYPE, sizeType)
+                                            .putExtra(Constants.SIZE_VALUE, items[index])
+                                    )
+                                    it.finish()
+                                }
                             }
                         }
                     )

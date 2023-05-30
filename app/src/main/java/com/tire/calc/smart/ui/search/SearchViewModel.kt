@@ -26,11 +26,11 @@ class SearchViewModel(
         this.groupBy { it.manufacturerName }
             .map { grouped ->
                 Manufacturer(
-                    manufacturerName = grouped.key,
+                    name = grouped.key,
                     models = grouped.value.map {
                         Model(
-                            modelId = it.modelId,
-                            modelName = it.modelName
+                            id = it.modelId,
+                            name = it.modelName
                         )
                     }
                 )
@@ -58,7 +58,7 @@ class SearchViewModel(
                         favorites.map {
                             ManufacturerModel(
                                 manufacturerName = "Favorites",
-                                modelName = it.size,
+                                modelName = it.wheelSize,
                                 modelId = it.id
                             )
                         }

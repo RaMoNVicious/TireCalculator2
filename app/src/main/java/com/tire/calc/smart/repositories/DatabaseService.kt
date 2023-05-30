@@ -7,37 +7,35 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.tire.calc.smart.models.dao.FavoriteSize
+import com.tire.calc.smart.models.dao.FavoriteWheel
 import com.tire.calc.smart.models.dao.Manufacturer
 import com.tire.calc.smart.models.dao.Model
-import com.tire.calc.smart.models.dao.ModelSize
-import com.tire.calc.smart.models.dao.ModelTrim
-import com.tire.calc.smart.models.dao.SelectedSize
-import com.tire.calc.smart.models.dao.TireSize
+import com.tire.calc.smart.models.dao.Trim
+import com.tire.calc.smart.models.dao.SelectedWheel
+import com.tire.calc.smart.models.dao.TrimWheel
+import com.tire.calc.smart.models.dao.Wheel
 
 @Database(
     entities = [
         Manufacturer::class,
         Model::class,
-        ModelTrim::class,
-        ModelSize::class,
-        TireSize::class,
-        SelectedSize::class,
-        FavoriteSize::class
+        Trim::class,
+        Wheel::class,
+        TrimWheel::class,
+        FavoriteWheel::class,
+        SelectedWheel::class,
     ],
     version = 1
 )
 abstract class DatabaseService : RoomDatabase() {
 
+    abstract fun tireSizeDao(): WheelDao
+
     abstract fun manufacturerModelDao(): ManufacturerModelDao
-
-    abstract fun manufacturerDao(): ManufacturerDao
-
-    abstract fun modelDao(): ModelDao
 
     abstract fun modelSizeDao(): ModelSizeDao
 
-    abstract fun savedSizeDao(): SavedSizeDao
+    abstract fun selectedSizeDao(): SavedSizeDao
 
     companion object {
 
@@ -119,7 +117,7 @@ abstract class DatabaseService : RoomDatabase() {
                         )
 
                         db.insert(
-                            "model_trim",
+                            "trim",
                             OnConflictStrategy.REPLACE,
                             ContentValues().apply {
                                 put("name", "SE")
@@ -127,7 +125,7 @@ abstract class DatabaseService : RoomDatabase() {
                             }
                         )
                         db.insert(
-                            "model_trim",
+                            "trim",
                             OnConflictStrategy.REPLACE,
                             ContentValues().apply {
                                 put("name", "SX")
@@ -135,7 +133,7 @@ abstract class DatabaseService : RoomDatabase() {
                             }
                         )
                         db.insert(
-                            "model_trim",
+                            "trim",
                             OnConflictStrategy.REPLACE,
                             ContentValues().apply {
                                 put("name", "Type-R")
@@ -143,7 +141,7 @@ abstract class DatabaseService : RoomDatabase() {
                             }
                         )
                         db.insert(
-                            "model_trim",
+                            "trim",
                             OnConflictStrategy.REPLACE,
                             ContentValues().apply {
                                 put("name", "ST")
@@ -151,7 +149,7 @@ abstract class DatabaseService : RoomDatabase() {
                             }
                         )
                         db.insert(
-                            "model_trim",
+                            "trim",
                             OnConflictStrategy.REPLACE,
                             ContentValues().apply {
                                 put("name", "ST")
@@ -159,7 +157,7 @@ abstract class DatabaseService : RoomDatabase() {
                             }
                         )
                         db.insert(
-                            "model_trim",
+                            "trim",
                             OnConflictStrategy.REPLACE,
                             ContentValues().apply {
                                 put("name", "RS")
@@ -168,35 +166,35 @@ abstract class DatabaseService : RoomDatabase() {
                         )
 
                         db.insert(
-                            "tire_size",
+                            "wheel",
                             OnConflictStrategy.REPLACE,
                             ContentValues().apply {
                                 put("size", "175/70 5.5Jx14 ET47")
                             }
                         )
                         db.insert(
-                            "tire_size",
+                            "wheel",
                             OnConflictStrategy.REPLACE,
                             ContentValues().apply {
                                 put("size", "185/65 5.5Jx14 ET43")
                             }
                         )
                         db.insert(
-                            "tire_size",
+                            "wheel",
                             OnConflictStrategy.REPLACE,
                             ContentValues().apply {
                                 put("size", "195/60 6.0Jx15 ET50")
                             }
                         )
                         db.insert(
-                            "tire_size",
+                            "wheel",
                             OnConflictStrategy.REPLACE,
                             ContentValues().apply {
                                 put("size", "205/50 6.5Jx16 ET52")
                             }
                         )
                         db.insert(
-                            "tire_size",
+                            "wheel",
                             OnConflictStrategy.REPLACE,
                             ContentValues().apply {
                                 put("size", "215/40 7.0Jx17 ET49")
@@ -204,98 +202,98 @@ abstract class DatabaseService : RoomDatabase() {
                         )
 
                         db.insert(
-                            "model_size",
+                            "trim_wheel",
                             OnConflictStrategy.REPLACE,
                             ContentValues().apply {
-                                put("model_trim_id", "1")
-                                put("size_id", "4")
+                                put("trim_id", "1")
+                                put("wheel_id", "4")
                             }
                         )
                         db.insert(
-                            "model_size",
+                            "trim_wheel",
                             OnConflictStrategy.REPLACE,
                             ContentValues().apply {
-                                put("model_trim_id", "2")
-                                put("size_id", "4")
+                                put("trim_id", "2")
+                                put("wheel_id", "4")
                             }
                         )
                         db.insert(
-                            "model_size",
+                            "trim_wheel",
                             OnConflictStrategy.REPLACE,
                             ContentValues().apply {
-                                put("model_trim_id", "2")
-                                put("size_id", "5")
+                                put("trim_id", "2")
+                                put("wheel_id", "5")
                             }
                         )
                         db.insert(
-                            "model_size",
+                            "trim_wheel",
                             OnConflictStrategy.REPLACE,
                             ContentValues().apply {
-                                put("model_trim_id", "3")
-                                put("size_id", "5")
+                                put("trim_id", "3")
+                                put("wheel_id", "5")
                             }
                         )
                         db.insert(
-                            "model_size",
+                            "trim_wheel",
                             OnConflictStrategy.REPLACE,
                             ContentValues().apply {
-                                put("model_trim_id", "4")
-                                put("size_id", "4")
+                                put("trim_id", "4")
+                                put("wheel_id", "4")
                             }
                         )
                         db.insert(
-                            "model_size",
+                            "trim_wheel",
                             OnConflictStrategy.REPLACE,
                             ContentValues().apply {
-                                put("model_trim_id", "5")
-                                put("size_id", "4")
+                                put("trim_id", "5")
+                                put("wheel_id", "4")
                             }
                         )
                         db.insert(
-                            "model_size",
+                            "trim_wheel",
                             OnConflictStrategy.REPLACE,
                             ContentValues().apply {
-                                put("model_trim_id", "5")
-                                put("size_id", "5")
+                                put("trim_id", "5")
+                                put("wheel_id", "5")
                             }
                         )
                         db.insert(
-                            "model_size",
+                            "trim_wheel",
                             OnConflictStrategy.REPLACE,
                             ContentValues().apply {
-                                put("model_trim_id", "6")
-                                put("size_id", "5")
-                            }
-                        )
-
-
-                        db.insert(
-                            "selected_size",
-                            OnConflictStrategy.REPLACE,
-                            ContentValues().apply {
-                                put("size_id", "5")
-                            }
-                        )
-                        db.insert(
-                            "selected_size",
-                            OnConflictStrategy.REPLACE,
-                            ContentValues().apply {
-                                put("size_id", "3")
+                                put("trim_id", "6")
+                                put("wheel_id", "5")
                             }
                         )
 
+
                         db.insert(
-                            "favorite_size",
+                            "selected_wheel",
                             OnConflictStrategy.REPLACE,
                             ContentValues().apply {
-                                put("size_id", "3")
+                                put("wheel_id", "5")
                             }
                         )
                         db.insert(
-                            "favorite_size",
+                            "selected_wheel",
                             OnConflictStrategy.REPLACE,
                             ContentValues().apply {
-                                put("size_id", "4")
+                                put("wheel_id", "3")
+                            }
+                        )
+
+                        db.insert(
+                            "favorite_wheel",
+                            OnConflictStrategy.REPLACE,
+                            ContentValues().apply {
+                                put("wheel_id", "3")
+                            }
+                        )
+                        db.insert(
+                            "favorite_wheel",
+                            OnConflictStrategy.REPLACE,
+                            ContentValues().apply {
+                                put("wheel_id", "4")
                             }
                         )
                     }
