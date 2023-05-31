@@ -1,4 +1,4 @@
-package com.tire.calc.smart.ui.modelsize
+package com.tire.calc.smart.ui.search.wheels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,7 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 
-class ModelSizeViewModel(
+class WheelsViewModel(
     private val modelSizeRepository: ModelSizeRepository
 ) : ViewModel() {
     private val _sizes: MutableLiveData<List<TrimWheels>> = MutableLiveData<List<TrimWheels>>()

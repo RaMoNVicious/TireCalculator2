@@ -1,4 +1,4 @@
-package com.tire.calc.smart.ui.search
+package com.tire.calc.smart.ui.search.models
 
 import android.os.Bundle
 import android.util.Log
@@ -11,14 +11,14 @@ import androidx.navigation.findNavController
 import com.tire.calc.smart.R
 import com.tire.calc.smart.databinding.FragmentSearchByModelBinding
 import com.tire.calc.smart.ui.adapters.ModelAdapter
-import com.tire.calc.smart.ui.modelsize.ModelSizeFragment
+import com.tire.calc.smart.ui.search.wheels.WheelsFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SearchFragment : Fragment() {
+class ModelsFragment : Fragment() {
 
     private lateinit var _binding: FragmentSearchByModelBinding
 
-    private val viewModel: SearchViewModel by viewModel()
+    private val viewModel: ModelsViewModel by viewModel()
 
     private lateinit var adapter: ModelAdapter
 
@@ -48,7 +48,7 @@ class SearchFragment : Fragment() {
                         R.id.action_searchFragment_to_modelSizeFragment,
                         Bundle().apply {
                             putLong(
-                                ModelSizeFragment.ARGUMENT_MODEL_ID,
+                                WheelsFragment.ARGUMENT_MODEL_ID,
                                 modelId
                             )
                         }

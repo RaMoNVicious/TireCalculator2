@@ -11,7 +11,8 @@ import androidx.navigation.findNavController
 import com.tire.calc.smart.R
 import com.tire.calc.smart.app.Constants
 import com.tire.calc.smart.databinding.FragmentMainBinding
-import com.tire.calc.smart.ui.size.SizeFragment
+import com.tire.calc.smart.models.domain.SelectedWheel
+import com.tire.calc.smart.ui.wheelsize.WheelSizeFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment() {
@@ -35,11 +36,11 @@ class MainFragment : Fragment() {
             lifecycleOwner = this@MainFragment
 
             sizeReference.setOnClickListener {
-                editSize(Constants.SELECTED_WHEEL_REFERENCE)
+                editSize(SelectedWheel.Reference)
             }
 
             sizeCandidate.setOnClickListener {
-                editSize(Constants.SELECTED_WHEEL_CANDIDATE)
+                editSize(SelectedWheel.Candidate)
             }
         }
 
@@ -70,8 +71,8 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun editSize(selectedWheel: String) {
-        setFragmentResultListener(SizeFragment.SIZE_DIALOG_FOR_RESULT) { key, bundle ->
+    private fun editSize(selectedWheel: SelectedWheel) {
+        setFragmentResultListener(WheelSizeFragment.SIZE_DIALOG_FOR_RESULT) { key, bundle ->
             viewModel.getWheels()
         }
 
@@ -80,7 +81,7 @@ class MainFragment : Fragment() {
             ?.navigate(
                 R.id.action_mainFragment_to_sizeFragment,
                 Bundle().apply {
-                    putString(
+                    putSerializable(
                         Constants.SELECTED_WHEEL,
                         selectedWheel
                     )

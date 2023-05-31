@@ -1,6 +1,5 @@
 package com.tire.calc.smart.repositories
 
-import com.tire.calc.smart.app.Constants
 import com.tire.calc.smart.models.dao.FavoriteWheel
 import com.tire.calc.smart.models.dao.FavoriteWheelSize
 import com.tire.calc.smart.models.dao.SelectedWheel
@@ -11,35 +10,23 @@ import kotlinx.coroutines.flow.flow
 
 class SavedSizeRepository(
     private val wheelDao: WheelDao,
-    private val savedSizeDao: SavedSizeDao
+    private val selectedSizeDao: SelectedSizeDao,
+    private val favoriteWheelDao: FavoriteWheelDao,
+    private val trimWheelDao: TrimWheelDao,
 ) {
 
-    suspend fun getReferenceSize(): Flow<SelectedWheelSize?> {
+    suspend fun getSelectedSize(id: Long): Flow<SelectedWheelSize?> {
         return flow {
-            emit(savedSizeDao.getSelectedSize(Constants.SAVED_WHEEL_REFERENCE_ID))
+            emit(selectedSizeDao.getSelectedSize(id))
         }
     }
 
-    suspend fun getCandidateSize(): Flow<SelectedWheelSize?> {
-        return flow {
-            emit(savedSizeDao.getSelectedSize(Constants.SAVED_WHEEL_CANDIDATE_ID))
-        }
-    }
-
-    suspend fun setReferenceSize(size: String): Flow<Long> {
-        return setSelectedSize(Constants.SAVED_WHEEL_REFERENCE_ID, size)
-    }
-
-    suspend fun setCandidateSize(size: String): Flow<Long> {
-        return setSelectedSize(Constants.SAVED_WHEEL_CANDIDATE_ID, size)
-    }
-
-    private suspend fun setSelectedSize(selectedId: Long, size: String): Flow<Long> {
-        val selectedWheelSize = savedSizeDao.getSelectedSize(selectedId)
+    suspend fun setSelectedSize(selectedId: Long, size: String): Flow<Long> {
+        val selectedWheelSize = selectedSizeDao.getSelectedSize(selectedId)
 
         return flow {
             emit(
-                savedSizeDao
+                selectedSizeDao
                     .insert(
                         SelectedWheel(
                             id = selectedId,
@@ -51,9 +38,7 @@ class SavedSizeRepository(
                             ?.wheelId
                             ?.let { wheelId ->
                                 wheelDao.getWheel(wheelId)
-                                    ?.takeIf {
-                                        hasFavoriteReference(it).or(hasTrimReference(it)).not()
-                                    }
+                                    ?.takeIf { hasReferences(it).not() }
                                     ?.let {
                                         wheelDao.delete(it)
                                     }
@@ -64,34 +49,44 @@ class SavedSizeRepository(
     }
 
     suspend fun getFavorites(): Flow<List<FavoriteWheelSize>> {
-        return flow { emit(savedSizeDao.getFavoriteSize()) }
+        return flow { emit(favoriteWheelDao.getFavoriteSize()) }
     }
 
-    suspend fun setFavorites(size: String): Flow<Long> {
-        val favoriteWheelSize = savedSizeDao.getFavoriteSize(size)
+    suspend fun setFavorites(size: String): Flow<Boolean> {
+        return flow {
+            emit(
+                favoriteWheelDao
+                    .getFavoriteSize(size)
+                    ?.let { favoriteWheelSize ->
+                        favoriteWheelDao
+                            .getFavoriteSize(favoriteWheelSize.id)
+                            ?.let { favoriteWheel ->
+                                favoriteWheelDao.delete(favoriteWheel)
 
-        if (favoriteWheelSize == null) {
-            savedSizeDao.insert(
-                FavoriteWheel(
-                    wheelId = wheelDao.insert(Wheel(size = size))
-                )
+                                wheelDao
+                                    .getWheel(favoriteWheel.wheelId)
+                                    ?.takeIf { hasReferences(it).not() }
+                                    ?.let {
+                                        wheelDao.delete(it)
+                                    }
+                            }
+                        false
+                    }
+                    ?: favoriteWheelDao.insert(
+                        FavoriteWheel(
+                            wheelId = wheelDao.getWheel(size)?.id
+                                ?: wheelDao.insert(Wheel(size = size))
+                        )
+                    ).let {
+                        it != 0L
+                    }
             )
-        } else {
-            // TODO: handle this
         }
-
-        return flow { emit(0L) }
     }
 
-    private suspend fun hasSelectedReference(wheel: Wheel): Boolean {
-        return savedSizeDao.selectedWheelReference(wheel.id).isNotEmpty()
-    }
-
-    private suspend fun hasFavoriteReference(wheel: Wheel): Boolean {
-        return savedSizeDao.favoriteWheelReference(wheel.id).isNotEmpty()
-    }
-
-    private suspend fun hasTrimReference(wheel: Wheel): Boolean {
-        return savedSizeDao.trimWheelReference(wheel.id).isNotEmpty()
+    private suspend fun hasReferences(wheel: Wheel): Boolean {
+        return selectedSizeDao.selectedWheelReference(wheel.id).isNotEmpty()
+                || favoriteWheelDao.favoriteWheelReference(wheel.id).isNotEmpty()
+                || trimWheelDao.trimWheelReference(wheel.id).isNotEmpty()
     }
 }

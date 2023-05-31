@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.tire.calc.smart.app.Constants
 import com.tire.calc.smart.databinding.FragmentSelectorBinding
+import com.tire.calc.smart.models.domain.SizeType
 import com.tire.calc.smart.ui.adapters.SizeAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -43,13 +44,14 @@ class SelectorFragment : Fragment() {
 
         activity?.intent
             ?.takeIf { it.hasExtra(Constants.SIZE_TYPE) && it.hasExtra(Constants.SIZE_VALUE) }
-            ?.getStringExtra(Constants.SIZE_TYPE)
-            ?.let { sizeType ->
+            ?.let { intent ->
+                val sizeType = intent.getSerializableExtra(Constants.SIZE_TYPE) as SizeType
+
                 viewModel.sizes.observe(viewLifecycleOwner) { items ->
                     adapter.setItems(
                         items = items.map {
                             when (sizeType) {
-                                Constants.SIZE_RIM_WIDTH -> "%.1f".format(it)
+                                SizeType.RimWidth -> "%.1f".format(it)
                                 else -> "%.0f".format(it)
                             }
                         },
@@ -68,7 +70,6 @@ class SelectorFragment : Fragment() {
                         }
                     )
                 }
-
                 viewModel.getSizes(sizeType)
             }
     }

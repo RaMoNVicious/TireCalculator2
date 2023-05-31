@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.tire.calc.smart.ui.search.SearchFragment"
+        android:name="com.tire.calc.smart.ui.search.models.ModelsFragment"
         android:label="SearchFragment" >
         <action
             android:id="@+id/action_searchFragment_to_modelSizeFragment"
@@ -15,7 +15,7 @@
 
     <fragment
         android:id="@+id/modelSizeFragment"
-        android:name="com.tire.calc.smart.ui.modelsize.ModelSizeFragment"
+        android:name="com.tire.calc.smart.ui.search.wheels.WheelsFragment"
         android:label="ModelSizeFragment" />
 
 </navigation>

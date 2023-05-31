@@ -8,29 +8,31 @@ import com.tire.calc.smart.repositories.ModelSizeRepository
 import com.tire.calc.smart.repositories.SavedSizeRepository
 import com.tire.calc.smart.repositories.SizesRepository
 import com.tire.calc.smart.ui.main.MainViewModel
-import com.tire.calc.smart.ui.modelsize.ModelSizeViewModel
-import com.tire.calc.smart.ui.search.SearchViewModel
+import com.tire.calc.smart.ui.search.wheels.WheelsViewModel
+import com.tire.calc.smart.ui.search.models.ModelsViewModel
 import com.tire.calc.smart.ui.selector.SelectorViewModel
-import com.tire.calc.smart.ui.size.SizeViewModel
+import com.tire.calc.smart.ui.wheelsize.WheelSizeViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {
     viewModel { MainViewModel(get()) }
-    viewModel { SearchViewModel(get(), get()) }
-    viewModel { SizeViewModel(get()) }
-    viewModel { ModelSizeViewModel(get()) }
+    viewModel { ModelsViewModel(get(), get()) }
+    viewModel { WheelSizeViewModel(get()) }
+    viewModel { WheelsViewModel(get()) }
     viewModel { SelectorViewModel(get()) }
 
-    single { DatabaseService.getDatabase(androidApplication()).tireSizeDao() }
+    single { DatabaseService.getDatabase(androidApplication()).wheelDao() }
+    single { DatabaseService.getDatabase(androidApplication()).trimWheelDao() }
     single { DatabaseService.getDatabase(androidApplication()).manufacturerModelDao() }
     single { DatabaseService.getDatabase(androidApplication()).modelSizeDao() }
     single { DatabaseService.getDatabase(androidApplication()).selectedSizeDao() }
+    single { DatabaseService.getDatabase(androidApplication()).favoriteWheelDao() }
 
     single { ManufacturerModelRepository(get()) }
     single { ModelSizeRepository(get()) }
-    single { SavedSizeRepository(get(), get()) }
+    single { SavedSizeRepository(get(), get(), get(), get()) }
     single { SizesRepository() }
 
     single { getSharedPrefs(androidApplication()) }

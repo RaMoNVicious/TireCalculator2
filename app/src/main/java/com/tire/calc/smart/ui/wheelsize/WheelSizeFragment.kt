@@ -1,4 +1,4 @@
-package com.tire.calc.smart.ui.size
+package com.tire.calc.smart.ui.wheelsize
 
 import android.app.Activity
 import android.content.Intent
@@ -9,19 +9,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
-import androidx.navigation.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.tire.calc.smart.R
 import com.tire.calc.smart.app.Constants
 import com.tire.calc.smart.databinding.FragmentSizeBinding
+import com.tire.calc.smart.models.domain.SelectedWheel
+import com.tire.calc.smart.models.domain.Wheel
 import com.tire.calc.smart.models.domain.WheelSize
+import com.tire.calc.smart.models.domain.SizeType
+import com.tire.calc.smart.ui.SearchActivity
 import com.tire.calc.smart.ui.SizeActivity
+import com.tire.calc.smart.ui.search.wheels.WheelsFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SizeFragment : BottomSheetDialogFragment() {
+class WheelSizeFragment : BottomSheetDialogFragment() {
     private lateinit var _binding: FragmentSizeBinding
 
-    private val viewModel: SizeViewModel by viewModel()
+    private val viewModel: WheelSizeViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,60 +45,53 @@ class SizeFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         _binding.apply {
-            lifecycleOwner = this@SizeFragment
+            lifecycleOwner = this@WheelSizeFragment
             btnByCarModel.paintFlags += Paint.UNDERLINE_TEXT_FLAG
 
-            arguments
-                ?.getString(Constants.SELECTED_WHEEL)
-                ?.let { showWheel(it) }
+            (arguments
+                ?.getSerializable(Constants.SELECTED_WHEEL) as SelectedWheel)
+                .let { showWheel(it) }
 
             btnClose.setOnClickListener { dismiss() }
         }
     }
 
-    private fun showWheel(selectedWheel: String) {
+    private fun showWheel(selectedWheel: SelectedWheel) {
         _binding.apply {
             btnByCarModel.setOnClickListener {
-                activity
-                    ?.findNavController(R.id.nav_host_fragment_container)
-                    ?.navigate(
-                        R.id.action_sizeFragment_to_searchActivity,
-                        Bundle().apply {
-                            putString(
-                                Constants.SELECTED_WHEEL,
-                                selectedWheel
-                            )
-                        }
-                    )
+                startActivityForResult(
+                    Intent(activity, SearchActivity::class.java),
+                    SearchActivity.REQUEST_BY_CAR_MODEL,
+                )
             }
 
-            viewModel.wheel.observe(viewLifecycleOwner) { wheelSize ->
-                btnRimDiameter.text = String.format("%.0f", wheelSize.rimHeight)
-                btnRimWidth.text = String.format("%.1f", wheelSize.rimWidth)
-                btnRimET.text = String.format("%.0f", wheelSize.rimEt)
+            viewModel.wheelSize.observe(viewLifecycleOwner) { wheel ->
+                btnRimWidth.text = String.format("%.1f", wheel.rimWidth)
+                btnRimDiameter.text = String.format("%.0f", wheel.rimHeight)
+                btnRimET.text = String.format("%.0f", wheel.rimEt)
 
-                btnTireWidth.text = String.format("%.0f", wheelSize.tireWidth)
-                btnTireHeight.text = String.format("%.0f", wheelSize.tireHeight)
-                btnTireDiameter.text = String.format("R%.0f", wheelSize.rimHeight)
+                btnTireWidth.text = String.format("%.0f", wheel.tireWidth)
+                btnTireHeight.text = String.format("%.0f", wheel.tireHeight)
+                btnTireDiameter.text = String.format("R%.0f", wheel.rimHeight)
 
                 btnRimDiameter.setOnClickListener {
-                    getSize(Constants.SIZE_RIM_HEIGHT, wheelSize)
+                    getSize(SizeType.RimHeight, wheel)
                 }
                 btnRimWidth.setOnClickListener {
-                    getSize(Constants.SIZE_RIM_WIDTH, wheelSize)
+                    getSize(SizeType.RimWidth, wheel)
                 }
                 btnRimET.setOnClickListener {
-                    getSize(Constants.SIZE_RIM_ET, wheelSize)
+                    getSize(SizeType.RimET, wheel)
                 }
 
                 btnTireWidth.setOnClickListener {
-                    getSize(Constants.SIZE_TIRE_WIDTH, wheelSize)
+                    getSize(SizeType.TireWidth, wheel)
                 }
                 btnTireHeight.setOnClickListener {
-                    getSize(Constants.SIZE_TIRE_HEIGHT, wheelSize)
+                    getSize(SizeType.TireHeight, wheel)
                 }
                 btnTireDiameter.setOnClickListener {
-                    getSize(Constants.SIZE_RIM_HEIGHT, wheelSize)
+                    getSize(SizeType.RimHeight, wheel)
                 }
 
                 btnClose.setOnClickListener {
@@ -102,7 +99,11 @@ class SizeFragment : BottomSheetDialogFragment() {
                     _binding.isLoading = true
                 }
 
-                viewModel.checkIsFavorite(wheelSize)
+                btnFavorites.setOnClickListener {
+                    viewModel.setFavorite(wheel)
+                }
+
+                viewModel.isFavorite(wheel)
             }
 
             viewModel.isFavorite.observe(viewLifecycleOwner) {
@@ -118,7 +119,7 @@ class SizeFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private fun getSize(sizeType: String, wheelSize: WheelSize) {
+    private fun getSize(sizeType: SizeType, wheelSize: WheelSize) {
         startActivityForResult(
             Intent(activity, SizeActivity::class.java)
                 .apply {
@@ -126,31 +127,37 @@ class SizeFragment : BottomSheetDialogFragment() {
                     putExtra(
                         Constants.SIZE_VALUE,
                         when (sizeType) {
-                            Constants.SIZE_RIM_WIDTH -> wheelSize.rimWidth
-                            Constants.SIZE_RIM_HEIGHT -> wheelSize.rimHeight
-                            Constants.SIZE_RIM_ET -> wheelSize.rimEt
-                            Constants.SIZE_TIRE_WIDTH -> wheelSize.tireWidth
-                            Constants.SIZE_TIRE_HEIGHT -> wheelSize.tireHeight
-                            else -> null
+                            SizeType.RimWidth -> wheelSize.rimWidth
+                            SizeType.RimHeight -> wheelSize.rimHeight
+                            SizeType.RimET -> wheelSize.rimEt
+                            SizeType.TireWidth -> wheelSize.tireWidth
+                            SizeType.TireHeight -> wheelSize.tireHeight
                         }
                     )
                 },
-            Constants.REQUEST_SIZE,
+            SizeActivity.REQUEST_SIZE,
         )
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == Constants.REQUEST_SIZE && resultCode == Activity.RESULT_OK) {
+        if (requestCode == SizeActivity.REQUEST_SIZE && resultCode == Activity.RESULT_OK) {
             data?.takeIf { it.hasExtra(Constants.SIZE_TYPE) && it.hasExtra(Constants.SIZE_VALUE) }
                 ?.let {
                     viewModel.setSize(
-                        it.getStringExtra(Constants.SIZE_TYPE) ?: "",
+                        it.getSerializableExtra(Constants.SIZE_TYPE) as SizeType,
                         it.getDoubleExtra(Constants.SIZE_VALUE, 0.0)
                     )
                 }
 
+        } else if (requestCode == SearchActivity.REQUEST_BY_CAR_MODEL && resultCode == Activity.RESULT_OK) {
+            data?.takeIf { it.hasExtra(WheelsFragment.ARGUMENT_WHEEL_SIZE) }
+                ?.let {
+                    viewModel.setWheel(
+                        it.getSerializableExtra(WheelsFragment.ARGUMENT_WHEEL_SIZE) as Wheel
+                    )
+                }
         }
     }
 

@@ -19,7 +19,7 @@
 
     <dialog
         android:id="@+id/sizeFragment"
-        android:name="com.tire.calc.smart.ui.size.SizeFragment"
+        android:name="com.tire.calc.smart.ui.wheelsize.WheelSizeFragment"
         android:label="SizeFragment" >
 
         <action

@@ -1,10 +1,10 @@
 package com.tire.calc.smart.ui.main
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.tire.calc.smart.models.domain.SelectedWheel
 import com.tire.calc.smart.models.domain.WheelInfo
 import com.tire.calc.smart.models.domain.WheelSize
 import com.tire.calc.smart.repositories.SavedSizeRepository
@@ -31,7 +31,7 @@ class MainViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             ensureActive()
             savedSizeRepository
-                .getReferenceSize()
+                .getSelectedSize(SelectedWheel.Reference.id)
                 .collect { selectedWheelSize ->
                     _wheelReference.postValue(
                         WheelInfo(
@@ -46,7 +46,7 @@ class MainViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             ensureActive()
             savedSizeRepository
-                .getCandidateSize()
+                .getSelectedSize(SelectedWheel.Candidate.id)
                 .collect { selectedWheelSize ->
                     _wheelCandidate.postValue(
                         WheelInfo(

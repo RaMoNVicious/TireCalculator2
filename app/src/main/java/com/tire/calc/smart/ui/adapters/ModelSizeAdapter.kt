@@ -1,6 +1,5 @@
 package com.tire.calc.smart.ui.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -8,18 +7,21 @@ import com.google.android.material.chip.Chip
 import com.tire.calc.smart.R
 import com.tire.calc.smart.databinding.ListItemSearchBinding
 import com.tire.calc.smart.models.domain.TrimWheels
+import com.tire.calc.smart.models.domain.Wheel
 
-class ModelSizeAdapter(private val onItemClickListener: OnClickListener) :
-    RecyclerView.Adapter<SearchVH>() {
+class ModelSizeAdapter : RecyclerView.Adapter<SearchVH>() {
 
     interface OnClickListener {
-        fun onItemClick(sizeId: Long)
+        fun onItemClick(wheel: Wheel)
     }
 
     private var _items = emptyList<TrimWheels>()
 
-    fun setItems(items: List<TrimWheels>) {
+    private var _onClickListener: OnClickListener? = null
+
+    fun setItems(items: List<TrimWheels>, onItemClickListener: OnClickListener) {
         _items = items
+        _onClickListener = onItemClickListener
         notifyDataSetChanged()
     }
 
@@ -41,17 +43,16 @@ class ModelSizeAdapter(private val onItemClickListener: OnClickListener) :
 
         holder.pnlItems.removeAllViews()
         val inflater = LayoutInflater.from(holder.pnlItems.context)
-        item.wheels.forEach { tireSize ->
+        item.wheels.forEach { wheel ->
             val chip = inflater.inflate(
                 R.layout.chip_wheel,
                 holder.pnlItems,
                 false
             ) as Chip
 
-            chip.text = tireSize.size
+            chip.text = wheel.size
             chip.setOnClickListener {
-                Log.d("SEARCH ITEM", "$tireSize clicked!")
-                onItemClickListener.onItemClick(tireSize.id)
+                _onClickListener?.onItemClick(wheel)
             }
 
             holder.pnlItems.addView(chip)

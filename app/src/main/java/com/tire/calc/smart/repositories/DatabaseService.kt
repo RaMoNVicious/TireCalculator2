@@ -29,13 +29,23 @@ import com.tire.calc.smart.models.dao.Wheel
 )
 abstract class DatabaseService : RoomDatabase() {
 
-    abstract fun tireSizeDao(): WheelDao
+    //abstract fun manufacturerDao(): ManufacturerDao
+
+    //abstract fun modelDao(): ModelDao
+
+    //abstract fun trimDao(): TrimDao
+
+    abstract fun trimWheelDao(): TrimWheelDao
+
+    abstract fun wheelDao(): WheelDao
 
     abstract fun manufacturerModelDao(): ManufacturerModelDao
 
     abstract fun modelSizeDao(): ModelSizeDao
 
-    abstract fun selectedSizeDao(): SavedSizeDao
+    abstract fun selectedSizeDao(): SelectedSizeDao
+
+    abstract fun favoriteWheelDao(): FavoriteWheelDao
 
     companion object {
 

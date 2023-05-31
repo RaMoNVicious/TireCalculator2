@@ -1,4 +1,4 @@
-package com.tire.calc.smart.ui.search
+package com.tire.calc.smart.ui.search.models
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,7 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 
-class SearchViewModel(
+class ModelsViewModel(
     private val manufacturerModelRepository: ManufacturerModelRepository,
     private val savedSizeRepository: SavedSizeRepository
 ) : ViewModel() {
@@ -39,7 +39,6 @@ class SearchViewModel(
     init {
         getModels()
     }
-
 
     private fun getModels() {
         viewModelScope.launch(Dispatchers.IO) {

@@ -22,6 +22,9 @@ class SearchActivity : AppCompatActivity() {
         _binding.btnBack.setOnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }
+    }
 
+    companion object {
+        const val REQUEST_BY_CAR_MODEL = 73
     }
 }
