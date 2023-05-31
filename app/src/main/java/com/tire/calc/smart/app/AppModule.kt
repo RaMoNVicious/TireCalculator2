@@ -9,7 +9,7 @@ import com.tire.calc.smart.repositories.SizesRepository
 import com.tire.calc.smart.ui.main.MainViewModel
 import com.tire.calc.smart.ui.search.wheels.WheelsViewModel
 import com.tire.calc.smart.ui.search.models.ModelsViewModel
-import com.tire.calc.smart.ui.selector.SelectorViewModel
+import com.tire.calc.smart.ui.sizeselector.SizeSelectionViewModel
 import com.tire.calc.smart.ui.wheelsize.WheelSizeViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -20,7 +20,7 @@ val appModule = module {
     viewModel { ModelsViewModel(get(), get()) }
     viewModel { WheelSizeViewModel(get(), get()) }
     viewModel { WheelsViewModel(get()) }
-    viewModel { SelectorViewModel(get()) }
+    viewModel { SizeSelectionViewModel(get()) }
 
     single { DatabaseService.getDatabase(androidApplication()).manufacturerDao() }
     single { DatabaseService.getDatabase(androidApplication()).modelDao() }

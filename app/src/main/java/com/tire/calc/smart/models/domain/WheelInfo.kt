@@ -1,11 +1,10 @@
 package com.tire.calc.smart.models.domain
 
-import com.tire.calc.smart.R
 import com.tire.calc.smart.app.Constants
 
 class WheelInfo(
-    val wheelSize: WheelSize,
-    val isImperial: Boolean = false
+    private val wheelSize: WheelSize,
+    private val isImperial: Boolean = false
 ) {
 
     private fun tireSideHeight(): Double = when (wheelSize.isOffroad) {
@@ -44,16 +43,16 @@ class WheelInfo(
         else -> Constants.KM_IN_MM
     } / wheelHeight() * Math.PI
 
-    fun getDistanceToArch(): Int {
-        return R.string.app_name
+    fun getDistanceToArch(): Double {
+        return 0.0
     }
 
-    fun getDistanceToSuspension(): Int {
-        return R.string.app_name
+    fun getDistanceToSuspension(): Double {
+        return 0.0
     }
 
-    fun getGroundClearance(): Int {
-        return R.string.app_name
+    fun getGroundClearance(): Double {
+        return 0.0
     }
 
     fun getTireLabel(): String = when (wheelSize.isOffroad) {
@@ -72,9 +71,9 @@ class WheelInfo(
     }
 
     fun getRimLabel(): String = String.format(
-        "%1$.0fx%2$.1f ET%3$.0f",
-        wheelSize.rimHeight,
+        "%1$.1fJx%2$.0f ET%3$.0f",
         wheelSize.rimWidth,
+        wheelSize.rimHeight,
         wheelSize.rimEt
     )
 

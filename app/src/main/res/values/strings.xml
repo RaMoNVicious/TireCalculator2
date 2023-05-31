@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TireCalculator 2</string>
+    <string name="app_name">TireCalculator</string>
     <string name="content_description_logo">App logo</string>
     <string name="content_description_menu">Main menu button</string>
     <string name="content_description_ok">OK</string>
@@ -30,6 +30,8 @@
 
     <string name="select_model_title">Select by Car model</string>
     <string name="default_text_brand_name">brand_name</string>
+    <string name="default_tire_size">215/60 R17</string>
+    <string name="default_rim_size">6.5Jx17 ET45</string>
     <string name="default_rim_width">5.5J</string>
     <string name="default_rim_height">18</string>
     <string name="default_rim_et">45</string>
@@ -37,5 +39,13 @@
     <string name="default_tire_width">355</string>
     <string name="default_tire_diameter">R18</string>
     <string name="wheel_size_search_by_car_model">Select by Car Model</string>
+
+    <string name="compare_format">%.1f</string>
+    <string name="compare_format_plus">+%.1f</string>
+    <string name="compare_tire_width">Wheel Width</string>
+    <string name="compare_tire_side_height">Tire Side Height</string>
+    <string name="compare_wheel_height">Wheel Total Height</string>
+    <string name="compare_wheel_circumference">Wheel Circumference</string>
+    <string name="compare_wheel_revs_per_km">Revs per Kilometer</string>
 
 </resources>

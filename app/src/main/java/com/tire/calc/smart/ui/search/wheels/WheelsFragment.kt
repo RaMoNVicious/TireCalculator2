@@ -7,14 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.tire.calc.smart.databinding.FragmentModelSizeBinding
+import com.tire.calc.smart.databinding.FragmentSearchWheelBinding
 import com.tire.calc.smart.models.domain.Wheel
 import com.tire.calc.smart.ui.adapters.ModelSizeAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class WheelsFragment : Fragment() {
 
-    private lateinit var _binding: FragmentModelSizeBinding
+    private lateinit var _binding: FragmentSearchWheelBinding
 
     private val viewModel: WheelsViewModel by viewModel()
 
@@ -25,7 +25,11 @@ class WheelsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentModelSizeBinding.inflate(inflater, container, false)
+        _binding = FragmentSearchWheelBinding.inflate(
+            inflater,
+            container,
+            false
+        )
         return _binding.root
     }
 

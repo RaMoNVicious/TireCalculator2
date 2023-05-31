@@ -9,14 +9,14 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.tire.calc.smart.R
-import com.tire.calc.smart.databinding.FragmentSearchByModelBinding
+import com.tire.calc.smart.databinding.FragmentSearchModelBinding
 import com.tire.calc.smart.ui.adapters.ModelAdapter
 import com.tire.calc.smart.ui.search.wheels.WheelsFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ModelsFragment : Fragment() {
 
-    private lateinit var _binding: FragmentSearchByModelBinding
+    private lateinit var _binding: FragmentSearchModelBinding
 
     private val viewModel: ModelsViewModel by viewModel()
 
@@ -27,7 +27,7 @@ class ModelsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentSearchByModelBinding.inflate(
+        _binding = FragmentSearchModelBinding.inflate(
             inflater,
             container,
             false

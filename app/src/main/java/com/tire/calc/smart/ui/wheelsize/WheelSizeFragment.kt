@@ -11,18 +11,18 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.tire.calc.smart.R
-import com.tire.calc.smart.databinding.FragmentSizeBinding
+import com.tire.calc.smart.databinding.FragmentWheelSizeBinding
 import com.tire.calc.smart.models.domain.SelectedWheel
 import com.tire.calc.smart.models.domain.Wheel
 import com.tire.calc.smart.models.domain.WheelSize
 import com.tire.calc.smart.models.domain.SizeType
 import com.tire.calc.smart.ui.SearchActivity
-import com.tire.calc.smart.ui.SizeActivity
+import com.tire.calc.smart.ui.SizeSelectionActivity
 import com.tire.calc.smart.ui.search.wheels.WheelsFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class WheelSizeFragment : BottomSheetDialogFragment() {
-    private lateinit var _binding: FragmentSizeBinding
+    private lateinit var _binding: FragmentWheelSizeBinding
 
     private val viewModel: WheelSizeViewModel by viewModel()
 
@@ -36,7 +36,7 @@ class WheelSizeFragment : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentSizeBinding.inflate(inflater, container, false)
+        _binding = FragmentWheelSizeBinding.inflate(inflater, container, false)
         return _binding.root
     }
 
@@ -120,7 +120,7 @@ class WheelSizeFragment : BottomSheetDialogFragment() {
 
     private fun getSize(sizeType: SizeType, wheelSize: WheelSize) {
         startActivityForResult(
-            Intent(activity, SizeActivity::class.java)
+            Intent(activity, SizeSelectionActivity::class.java)
                 .apply {
                     putExtra(SIZE_TYPE, sizeType)
                     putExtra(
@@ -134,14 +134,14 @@ class WheelSizeFragment : BottomSheetDialogFragment() {
                         }
                     )
                 },
-            SizeActivity.REQUEST_SIZE,
+            SizeSelectionActivity.REQUEST_SIZE,
         )
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == SizeActivity.REQUEST_SIZE && resultCode == Activity.RESULT_OK) {
+        if (requestCode == SizeSelectionActivity.REQUEST_SIZE && resultCode == Activity.RESULT_OK) {
             data?.takeIf { it.hasExtra(SIZE_TYPE) && it.hasExtra(SIZE_VALUE) }
                 ?.let {
                     viewModel.setSize(

@@ -1,4 +1,4 @@
-package com.tire.calc.smart.ui.selector
+package com.tire.calc.smart.ui.sizeselector
 
 import android.app.Activity
 import android.content.Intent
@@ -12,13 +12,12 @@ import com.tire.calc.smart.models.domain.SizeType
 import com.tire.calc.smart.ui.adapters.SizeAdapter
 import com.tire.calc.smart.ui.wheelsize.WheelSizeFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import kotlin.math.min
 
-class SelectorFragment : Fragment() {
+class SizeSelectionFragment : Fragment() {
 
     private lateinit var _binding: FragmentSelectorBinding
 
-    private val viewModel: SelectorViewModel by viewModel()
+    private val viewModel: SizeSelectionViewModel by viewModel()
 
     private lateinit var adapter: SizeAdapter
 

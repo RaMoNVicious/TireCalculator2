@@ -16,6 +16,8 @@
 
     <dimen name="tire_button_size">72dp</dimen>
 
+    <dimen name="compare_value_width">64dp</dimen>
+
     <dimen name="popup_radius">@dimen/margin_x9</dimen>
 
     <dimen name="card_elevation">@dimen/margin_x2</dimen>
@@ -23,9 +25,14 @@
 
     <dimen name="text_size">14sp</dimen>
     <dimen name="text_title_size">20sp</dimen>
+    <dimen name="text_tire_size">22sp</dimen>
+    <dimen name="text_rim_size">18sp</dimen>
     <dimen name="text_list_title_size">22sp</dimen>
     <dimen name="text_chip_model_size">16sp</dimen>
     <dimen name="text_chip_wheel_size">16sp</dimen>
+
+    <dimen name="text_compare_size">18sp</dimen>
+
     <dimen name="card_text_label_size">14sp</dimen>
     <dimen name="card_text_value_size">36sp</dimen>
 

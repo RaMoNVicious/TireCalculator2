@@ -36,7 +36,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/text_label</item>
         <item name="android:textSize">@dimen/text_size</item>
-        <item name="android:lines">1</item>
+        <!--<item name="android:lines">1</item>-->
     </style>
 
     <style name="Label.Dialog" parent="@style/Label">
@@ -47,10 +47,35 @@
         <item name="android:textSize">@dimen/text_title_size</item>
     </style>
 
+    <style name="Label.TireSize" parent="@style/Label">
+        <item name="android:textColor">@color/text_value</item>
+        <item name="android:textSize">@dimen/text_tire_size</item>
+    </style>
+
+    <style name="Label.RimSize" parent="@style/Label">
+        <item name="android:textColor">@color/text_value</item>
+        <item name="android:textSize">@dimen/text_rim_size</item>
+    </style>
+
     <style name="Label.ListTitle" parent="@style/Label">
         <item name="android:layout_width">0dp</item>
         <item name="android:textColor">@color/text_title</item>
         <item name="android:textSize">@dimen/text_list_title_size</item>
+    </style>
+
+    <style name="Label.Compare" parent="@style/Label">
+        <item name="android:textColor">@color/text_title</item>
+        <item name="android:textSize">@dimen/text_compare_size</item>
+    </style>
+
+    <style name="Label.Compare.Value" parent="@style/Label.Compare">
+        <item name="android:layout_width">@dimen/compare_value_width</item>
+        <item name="android:textColor">@color/text_value</item>
+    </style>
+
+    <style name="Label.Compare.Diff" parent="@style/Label.Compare">
+        <item name="android:layout_width">@dimen/compare_value_width</item>
+        <item name="android:textColor">@color/text_title</item>
     </style>
 
     <style name="ListChip" parent="Widget.MaterialComponents.Chip.Choice">

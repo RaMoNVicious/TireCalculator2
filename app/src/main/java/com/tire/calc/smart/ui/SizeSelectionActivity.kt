@@ -8,7 +8,7 @@ import com.tire.calc.smart.databinding.ActivitySizeBinding
 import com.tire.calc.smart.models.domain.SizeType
 import com.tire.calc.smart.ui.wheelsize.WheelSizeFragment
 
-class SizeActivity : AppCompatActivity() {
+class SizeSelectionActivity : AppCompatActivity() {
 
     private lateinit var _binding: ActivitySizeBinding
 
@@ -27,6 +27,10 @@ class SizeActivity : AppCompatActivity() {
                     SizeType.TireHeight -> R.string.select_size_tire_height
                 }
             )
+        }
+
+        _binding.btnBack.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
         }
     }
 

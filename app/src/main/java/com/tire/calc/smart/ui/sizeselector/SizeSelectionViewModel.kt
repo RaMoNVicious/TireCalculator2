@@ -1,4 +1,4 @@
-package com.tire.calc.smart.ui.selector
+package com.tire.calc.smart.ui.sizeselector
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,7 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 
-class SelectorViewModel(private val sizesRepository: SizesRepository) : ViewModel() {
+class SizeSelectionViewModel(private val sizesRepository: SizesRepository) : ViewModel() {
 
     private val _sizes: MutableLiveData<List<Double>> = MutableLiveData<List<Double>>()
     val sizes: LiveData<List<Double>> = _sizes

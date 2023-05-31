@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <data>
-
-    </data>
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -44,6 +41,17 @@
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/text_label" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/lstCompare"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/margin_x4"
+            tools:listitem="@layout/list_item_compare"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@id/sizeReference"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnMenu" />
 
         <LinearLayout
             android:id="@+id/sizeReference"
@@ -61,16 +69,17 @@
 
             <TextView
                 android:id="@+id/lblTireReference"
+                style="@style/Label.TireSize"
+                android:text="@string/default_tire_size"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=""
                 android:textAlignment="center" />
 
             <TextView
                 android:id="@+id/lblRimReference"
+                android:text="@string/default_rim_size"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=""
                 android:textAlignment="center" />
 
         </LinearLayout>
@@ -91,16 +100,17 @@
 
             <TextView
                 android:id="@+id/lblTireCandidate"
+                style="@style/Label.TireSize"
+                android:text="@string/default_tire_size"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=""
                 android:textAlignment="center" />
 
             <TextView
                 android:id="@+id/lblRimCandidate"
+                android:text="@string/default_rim_size"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=""
                 android:textAlignment="center" />
 
         </LinearLayout>

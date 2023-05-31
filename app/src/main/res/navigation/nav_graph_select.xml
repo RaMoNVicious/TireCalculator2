@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/selectorFragment"
-        android:name="com.tire.calc.smart.ui.selector.SelectorFragment"
+        android:name="com.tire.calc.smart.ui.sizeselector.SizeSelectionFragment"
         android:label="SelectorFragment" />
 
 </navigation>

@@ -33,7 +33,7 @@
 
     <activity
         android:id="@+id/sizeActivity"
-        android:name="com.tire.calc.smart.ui.SizeActivity"
+        android:name="com.tire.calc.smart.ui.SizeSelectionActivity"
         android:label="activity_size"
         tools:layout="@layout/activity_size" />
 
