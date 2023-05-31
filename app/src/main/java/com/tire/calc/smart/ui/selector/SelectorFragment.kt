@@ -7,11 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.tire.calc.smart.app.Constants
 import com.tire.calc.smart.databinding.FragmentSelectorBinding
 import com.tire.calc.smart.models.domain.SizeType
 import com.tire.calc.smart.ui.adapters.SizeAdapter
+import com.tire.calc.smart.ui.wheelsize.WheelSizeFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import kotlin.math.min
 
 class SelectorFragment : Fragment() {
 
@@ -43,9 +44,13 @@ class SelectorFragment : Fragment() {
         _binding.listSize.adapter = adapter
 
         activity?.intent
-            ?.takeIf { it.hasExtra(Constants.SIZE_TYPE) && it.hasExtra(Constants.SIZE_VALUE) }
+            ?.takeIf {
+                it.hasExtra(WheelSizeFragment.SIZE_TYPE)
+                        && it.hasExtra(WheelSizeFragment.SIZE_VALUE)
+            }
             ?.let { intent ->
-                val sizeType = intent.getSerializableExtra(Constants.SIZE_TYPE) as SizeType
+                val sizeType = intent.getSerializableExtra(WheelSizeFragment.SIZE_TYPE) as SizeType
+                val sizeValue = intent.getDoubleExtra(WheelSizeFragment.SIZE_VALUE, 0.0)
 
                 viewModel.sizes.observe(viewLifecycleOwner) { items ->
                     adapter.setItems(
@@ -61,14 +66,21 @@ class SelectorFragment : Fragment() {
                                     it.setResult(
                                         Activity.RESULT_OK,
                                         Intent()
-                                            .putExtra(Constants.SIZE_TYPE, sizeType)
-                                            .putExtra(Constants.SIZE_VALUE, items[index])
+                                            .putExtra(WheelSizeFragment.SIZE_TYPE, sizeType)
+                                            .putExtra(WheelSizeFragment.SIZE_VALUE, items[index])
                                     )
                                     it.finish()
                                 }
                             }
                         }
                     )
+
+                    items.indexOf(sizeValue)
+                        .takeIf { it != -1 }
+                        ?.let { index ->
+                            _binding.listSize.scrollToPosition(index)
+                        }
+
                 }
                 viewModel.getSizes(sizeType)
             }

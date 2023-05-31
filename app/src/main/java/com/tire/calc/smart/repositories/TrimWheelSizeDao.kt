@@ -5,7 +5,7 @@ import androidx.room.Query
 import com.tire.calc.smart.models.dao.TrimWheelSize
 
 @Dao
-interface ModelSizeDao {
+interface TrimWheelSizeDao {
     @Query(
         """SELECT
             trim.name AS trim_name, 

@@ -4,18 +4,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tire.calc.smart.app.Constants
 import com.tire.calc.smart.models.domain.SelectedWheel
 import com.tire.calc.smart.models.domain.Wheel
 import com.tire.calc.smart.models.domain.WheelSize
 import com.tire.calc.smart.models.domain.SizeType
-import com.tire.calc.smart.repositories.SavedSizeRepository
+import com.tire.calc.smart.repositories.FavoriteWheelRepository
+import com.tire.calc.smart.repositories.SelectedWheelRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 
 class WheelSizeViewModel(
-    private val savedSizeRepository: SavedSizeRepository,
+    private val selectedWheelRepository: SelectedWheelRepository,
+    private val favoriteWheelRepository: FavoriteWheelRepository,
 ) : ViewModel() {
     private val _wheelSize: MutableLiveData<WheelSize> = MutableLiveData<WheelSize>()
     val wheelSize: LiveData<WheelSize> = _wheelSize
@@ -30,7 +31,7 @@ class WheelSizeViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             ensureActive()
 
-            savedSizeRepository
+            selectedWheelRepository
                 .getSelectedSize(selectedWheel.id)
                 .collect { selectedWheelSize ->
                     _wheelSize.postValue(
@@ -65,7 +66,7 @@ class WheelSizeViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             ensureActive()
             _wheelSize.value?.let { wheelSize ->
-                savedSizeRepository
+                selectedWheelRepository
                     .setSelectedSize(selectedWheel.id, wheelSize.toEntity())
                     .collect {
                         if (it != 0L) {
@@ -79,7 +80,7 @@ class WheelSizeViewModel(
     fun isFavorite(wheelSize: WheelSize) {
         viewModelScope.launch(Dispatchers.IO) {
             ensureActive()
-            savedSizeRepository
+            favoriteWheelRepository
                 .getFavorites()
                 .collect { tireSizes ->
                     _isFavorite.postValue(
@@ -95,7 +96,7 @@ class WheelSizeViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             ensureActive()
 
-            savedSizeRepository
+            favoriteWheelRepository
                 .setFavorites(wheelSize.toEntity())
                 .collect { _isFavorite.postValue(it) }
         }

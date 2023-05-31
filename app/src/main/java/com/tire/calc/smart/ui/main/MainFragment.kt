@@ -72,7 +72,7 @@ class MainFragment : Fragment() {
     }
 
     private fun editSize(selectedWheel: SelectedWheel) {
-        setFragmentResultListener(WheelSizeFragment.SIZE_DIALOG_FOR_RESULT) { key, bundle ->
+        setFragmentResultListener(WheelSizeFragment.SIZE_DIALOG_FOR_RESULT) { _, _ ->
             viewModel.getWheels()
         }
 
@@ -82,7 +82,7 @@ class MainFragment : Fragment() {
                 R.id.action_mainFragment_to_sizeFragment,
                 Bundle().apply {
                     putSerializable(
-                        Constants.SELECTED_WHEEL,
+                        WheelSizeFragment.SELECTED_WHEEL,
                         selectedWheel
                     )
                 }

@@ -7,13 +7,13 @@ import androidx.lifecycle.viewModelScope
 import com.tire.calc.smart.models.domain.SelectedWheel
 import com.tire.calc.smart.models.domain.WheelInfo
 import com.tire.calc.smart.models.domain.WheelSize
-import com.tire.calc.smart.repositories.SavedSizeRepository
+import com.tire.calc.smart.repositories.SelectedWheelRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 
 class MainViewModel(
-    private val savedSizeRepository: SavedSizeRepository,
+    private val selectedWheelRepository: SelectedWheelRepository,
 ) : ViewModel() {
 
     private val _wheelReference: MutableLiveData<WheelInfo> = MutableLiveData<WheelInfo>()
@@ -30,7 +30,7 @@ class MainViewModel(
     fun getWheels() {
         viewModelScope.launch(Dispatchers.IO) {
             ensureActive()
-            savedSizeRepository
+            selectedWheelRepository
                 .getSelectedSize(SelectedWheel.Reference.id)
                 .collect { selectedWheelSize ->
                     _wheelReference.postValue(
@@ -45,7 +45,7 @@ class MainViewModel(
 
         viewModelScope.launch(Dispatchers.IO) {
             ensureActive()
-            savedSizeRepository
+            selectedWheelRepository
                 .getSelectedSize(SelectedWheel.Candidate.id)
                 .collect { selectedWheelSize ->
                     _wheelCandidate.postValue(

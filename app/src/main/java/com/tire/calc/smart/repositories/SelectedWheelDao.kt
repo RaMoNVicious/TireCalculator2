@@ -8,7 +8,7 @@ import com.tire.calc.smart.models.dao.SelectedWheel
 import com.tire.calc.smart.models.dao.SelectedWheelSize
 
 @Dao
-interface SelectedSizeDao {
+interface SelectedWheelDao {
 
     @Query(
         """SELECT

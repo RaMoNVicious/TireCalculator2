@@ -7,15 +7,15 @@ import androidx.lifecycle.viewModelScope
 import com.tire.calc.smart.models.dao.ManufacturerModel
 import com.tire.calc.smart.models.domain.Manufacturer
 import com.tire.calc.smart.models.domain.Model
+import com.tire.calc.smart.repositories.FavoriteWheelRepository
 import com.tire.calc.smart.repositories.ManufacturerModelRepository
-import com.tire.calc.smart.repositories.SavedSizeRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 
 class ModelsViewModel(
     private val manufacturerModelRepository: ManufacturerModelRepository,
-    private val savedSizeRepository: SavedSizeRepository
+    private val favoriteWheelRepository: FavoriteWheelRepository,
 ) : ViewModel() {
 
     private val _manufacturers: MutableLiveData<List<Manufacturer>> =
@@ -49,7 +49,7 @@ class ModelsViewModel(
                 .getAll()
                 .collect { items.addAll(it) }
 
-            savedSizeRepository
+            favoriteWheelRepository
                 .getFavorites()
                 .collect { favorites ->
                     items.addAll(

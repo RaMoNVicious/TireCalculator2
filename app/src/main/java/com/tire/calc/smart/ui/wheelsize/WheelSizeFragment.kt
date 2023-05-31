@@ -11,7 +11,6 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.tire.calc.smart.R
-import com.tire.calc.smart.app.Constants
 import com.tire.calc.smart.databinding.FragmentSizeBinding
 import com.tire.calc.smart.models.domain.SelectedWheel
 import com.tire.calc.smart.models.domain.Wheel
@@ -49,7 +48,7 @@ class WheelSizeFragment : BottomSheetDialogFragment() {
             btnByCarModel.paintFlags += Paint.UNDERLINE_TEXT_FLAG
 
             (arguments
-                ?.getSerializable(Constants.SELECTED_WHEEL) as SelectedWheel)
+                ?.getSerializable(SELECTED_WHEEL) as SelectedWheel)
                 .let { showWheel(it) }
 
             btnClose.setOnClickListener { dismiss() }
@@ -123,9 +122,9 @@ class WheelSizeFragment : BottomSheetDialogFragment() {
         startActivityForResult(
             Intent(activity, SizeActivity::class.java)
                 .apply {
-                    putExtra(Constants.SIZE_TYPE, sizeType)
+                    putExtra(SIZE_TYPE, sizeType)
                     putExtra(
-                        Constants.SIZE_VALUE,
+                        SIZE_VALUE,
                         when (sizeType) {
                             SizeType.RimWidth -> wheelSize.rimWidth
                             SizeType.RimHeight -> wheelSize.rimHeight
@@ -143,11 +142,11 @@ class WheelSizeFragment : BottomSheetDialogFragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == SizeActivity.REQUEST_SIZE && resultCode == Activity.RESULT_OK) {
-            data?.takeIf { it.hasExtra(Constants.SIZE_TYPE) && it.hasExtra(Constants.SIZE_VALUE) }
+            data?.takeIf { it.hasExtra(SIZE_TYPE) && it.hasExtra(SIZE_VALUE) }
                 ?.let {
                     viewModel.setSize(
-                        it.getSerializableExtra(Constants.SIZE_TYPE) as SizeType,
-                        it.getDoubleExtra(Constants.SIZE_VALUE, 0.0)
+                        it.getSerializableExtra(SIZE_TYPE) as SizeType,
+                        it.getDoubleExtra(SIZE_VALUE, 0.0)
                     )
                 }
 
@@ -162,6 +161,10 @@ class WheelSizeFragment : BottomSheetDialogFragment() {
     }
 
     companion object {
+        const val SELECTED_WHEEL = "ARGUMENT_SELECTED_WHEEL"
+        const val SIZE_VALUE = "ARGUMENT_SIZE_VALUE"
+        const val SIZE_TYPE = "ARGUMENT_SIZE_TYPE"
+
         const val SIZE_DIALOG_FOR_RESULT = "SIZE_DIALOG_FOR_RESULT"
     }
 }

@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.tire.calc.smart.app.Constants
 import com.tire.calc.smart.models.dao.FavoriteWheel
 import com.tire.calc.smart.models.dao.Manufacturer
 import com.tire.calc.smart.models.dao.Model
@@ -28,12 +29,11 @@ import com.tire.calc.smart.models.dao.Wheel
     version = 1
 )
 abstract class DatabaseService : RoomDatabase() {
+    abstract fun manufacturerDao(): ManufacturerDao
 
-    //abstract fun manufacturerDao(): ManufacturerDao
+    abstract fun modelDao(): ModelDao
 
-    //abstract fun modelDao(): ModelDao
-
-    //abstract fun trimDao(): TrimDao
+    abstract fun trimDao(): TrimDao
 
     abstract fun trimWheelDao(): TrimWheelDao
 
@@ -41,9 +41,9 @@ abstract class DatabaseService : RoomDatabase() {
 
     abstract fun manufacturerModelDao(): ManufacturerModelDao
 
-    abstract fun modelSizeDao(): ModelSizeDao
+    abstract fun trimWheelSizeDao(): TrimWheelSizeDao
 
-    abstract fun selectedSizeDao(): SelectedSizeDao
+    abstract fun selectedSizeDao(): SelectedWheelDao
 
     abstract fun favoriteWheelDao(): FavoriteWheelDao
 
@@ -63,7 +63,7 @@ abstract class DatabaseService : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     DatabaseService::class.java,
-                    "tires_database"
+                    Constants.DATABASE_NAME
                 ).addCallback(object : Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) {
                         super.onCreate(db)
