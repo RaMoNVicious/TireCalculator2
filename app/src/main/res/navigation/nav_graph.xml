@@ -9,6 +9,38 @@
         android:id="@+id/mainFragment"
         android:name="com.tire.calc.smart.ui.main.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main">
+
+        <action
+            android:id="@+id/action_mainFragment_to_sizeFragment"
+            app:destination="@id/sizeFragment" />
+
+    </fragment>
+
+    <dialog
+        android:id="@+id/sizeFragment"
+        android:name="com.tire.calc.smart.ui.wheelsize.WheelSizeFragment"
+        android:label="SizeFragment" >
+
+        <action
+            android:id="@+id/action_sizeFragment_to_sizeActivity"
+            app:destination="@id/sizeActivity" />
+        <action
+            android:id="@+id/action_sizeFragment_to_searchActivity"
+            app:destination="@id/searchActivity" />
+
+    </dialog>
+
+    <activity
+        android:id="@+id/sizeActivity"
+        android:name="com.tire.calc.smart.ui.SizeSelectionActivity"
+        android:label="activity_size"
+        tools:layout="@layout/activity_size" />
+
+    <activity
+        android:id="@+id/searchActivity"
+        android:name="com.tire.calc.smart.ui.SearchActivity"
+        android:label="activity_search"
+        tools:layout="@layout/activity_search" />
 
 </navigation>
