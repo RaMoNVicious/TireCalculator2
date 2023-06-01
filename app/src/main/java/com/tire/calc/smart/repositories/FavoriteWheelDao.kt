@@ -12,7 +12,7 @@ import com.tire.calc.smart.models.dao.FavoriteWheelSize
 interface FavoriteWheelDao {
 
     @Query("SELECT * FROM favorite_wheel WHERE favorite_wheel.id = :id")
-    suspend fun getFavoriteSize(id: Long) : FavoriteWheel?
+    suspend fun getFavoriteWheel(id: Long) : FavoriteWheel?
 
     @Query(
         """SELECT
@@ -22,7 +22,7 @@ interface FavoriteWheelDao {
             FROM wheel
             INNER JOIN favorite_wheel ON favorite_wheel.wheel_id = wheel.id"""
     )
-    suspend fun getFavoriteSize(): List<FavoriteWheelSize>
+    suspend fun getFavoriteWheel(): List<FavoriteWheelSize>
 
     @Query(
         """SELECT
@@ -33,7 +33,7 @@ interface FavoriteWheelDao {
             INNER JOIN favorite_wheel ON favorite_wheel.wheel_id = wheel.id
             WHERE wheel.size = :size"""
     )
-    suspend fun getFavoriteSize(size: String) : FavoriteWheelSize?
+    suspend fun getFavoriteWheelSize(size: String) : FavoriteWheelSize?
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(favoriteSize: FavoriteWheel) : Long

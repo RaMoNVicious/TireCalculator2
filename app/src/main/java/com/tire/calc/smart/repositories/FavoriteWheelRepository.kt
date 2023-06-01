@@ -13,17 +13,17 @@ class FavoriteWheelRepository(
     private val trimWheelDao: TrimWheelDao,
 ) {
     suspend fun getFavorites(): Flow<List<FavoriteWheelSize>> {
-        return flow { emit(favoriteWheelDao.getFavoriteSize()) }
+        return flow { emit(favoriteWheelDao.getFavoriteWheel()) }
     }
 
     suspend fun setFavorites(size: String): Flow<Boolean> {
         return flow {
             emit(
                 favoriteWheelDao
-                    .getFavoriteSize(size)
+                    .getFavoriteWheelSize(size)
                     ?.let { favoriteWheelSize ->
                         favoriteWheelDao
-                            .getFavoriteSize(favoriteWheelSize.id)
+                            .getFavoriteWheel(favoriteWheelSize.id)
                             ?.let { favoriteWheel ->
                                 favoriteWheelDao.delete(favoriteWheel)
 
